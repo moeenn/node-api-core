@@ -2,10 +2,12 @@
 import * as T from "#src/index.d.mjs"
 import Fastify from "fastify"
 import process from "node:process"
-import { fastifyRequestContextPlugin } from "@fastify/request-context"
-import { requestContextPlugin } from "#src/core/plugins/requestContextPlugin.mjs"
 import { serverConfig } from "#src/app/config/serverConfig.mjs"
 import { routes } from "#src/app/routes.mjs"
+import {
+  rateLimitPlugin,
+  requestContextPlugin,
+} from "#src/core/plugins/index.mjs"
 
 export const Server = {
   /** @type {function (): T.Fastify} */
@@ -16,7 +18,8 @@ export const Server = {
 
     /** register all plugins */
     server
-      .register(fastifyRequestContextPlugin, requestContextPlugin.options)
+      .register(rateLimitPlugin.plug, rateLimitPlugin.options)
+      .register(requestContextPlugin.plug, requestContextPlugin.options)
       .register(routes)
 
     return server

@@ -16,6 +16,6 @@ export const authConfig = {
    *  variables should be defined ahead of time
    */
   authStateDefaults: {
-    user: { id: 0, role: "", token: "" },
+    user: { userId: 0, userRole: "", token: "" },
   },
 }
