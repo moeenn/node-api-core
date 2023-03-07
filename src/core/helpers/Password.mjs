@@ -14,7 +14,7 @@ export const Password = {
 
   /**
    *  verify whether hash / salt combo matches with the cleartext password string
-   *  
+   *
    *  @param {string} hashed
    *  @param {string} cleartext
    *  @returns {Promise<boolean>}

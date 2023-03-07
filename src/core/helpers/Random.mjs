@@ -3,7 +3,7 @@ import crypto from "node:crypto"
 export const Random = {
   /**
    *  generate a random string of provided length
-   *  
+   *
    *  @param {number} bytes
    *  @returns {string}
    */
@@ -13,7 +13,7 @@ export const Random = {
 
   /**
    *  generate a random number in the provided range
-   *  
+   *
    *  @param {number} min
    *  @param {number} max
    *  @returns {number}
@@ -24,7 +24,7 @@ export const Random = {
 
   /**
    *  generate a fixed length numeric pin
-   * 
+   *
    *  @param {number} length
    *  @returns {string}
    */

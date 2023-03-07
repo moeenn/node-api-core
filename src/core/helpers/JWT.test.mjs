@@ -11,6 +11,6 @@ test("validate JWT", async () => {
   expect(typeof token).toBe("string")
 
   /** @type {any} */
-  const result = (await JWT.validate({ secret, token }))
+  const result = await JWT.validate({ secret, token })
   expect(result.id).toBe(payload.id)
 })

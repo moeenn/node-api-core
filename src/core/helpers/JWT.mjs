@@ -6,11 +6,11 @@ export const JWT = {
    *  @property {string} secret
    *  @property {Record<string, unknown>} payload
    *  @property {number=} expiredInSeconds
-  */
+   */
 
   /**
    *  generate a JWT and sign using a secret key
-   *  
+   *
    *  @param {GenerateArgs} args
    *  @returns {Promise<string>}
    */
@@ -24,7 +24,7 @@ export const JWT = {
 
   /**
    *  check if JWT is valid and extract the payload
-   * 
+   *
    *  @param {{ secret: string, token: string}} args
    *  @returns {Promise<unknown>}
    */

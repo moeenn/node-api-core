@@ -62,6 +62,8 @@
     "vitest": "^0.29.2"
   },
   "dependencies": {
+    "@fastify/error": "^3.2.0",
+    "@fastify/request-context": "^4.2.0",
     "argon2": "^0.30.3",
     "dotenv-cli": "^7.0.0",
     "fastify": "^4.14.1",
