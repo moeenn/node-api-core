@@ -3,12 +3,10 @@ import * as T from "#src/index.d.mjs"
 import Fastify from "fastify"
 import process from "node:process"
 import { serverConfig } from "#src/app/config/serverConfig.mjs"
-import { routes } from "#src/app/routes/index.mjs"
+import { routes } from "#src/app/routes.mjs"
 
 export const Server = {
-  plugins: [
-    routes,
-  ],
+  plugins: [routes],
 
   /** @type {function (): T.Fastify} */
   new() {

@@ -4,12 +4,15 @@
   "main": "src/index.mjs",
   "license": "MIT",
   "scripts": {
-    "start": "node ./src/index.mjs",
+    "dev": "dotenv -e .env -- npm run env:check && node ./src/index.mjs",
+    "start": "npm run env:check && node ./src/index.mjs",
     "type-check": "tsc --project jsconfig.json",
     "test": "npx vitest",
     "lint": "npx eslint ./src/ --ext .mjs",
     "fmt": "npx prettier --write 'src/**/*.mjs'",
-    "check": "npm run type-check && npm run lint"
+    "check": "npm run type-check && npm run lint",
+    "env:check": "node ./src/core/scripts/validateEnv.mjs",
+    "gen:secret": "node ./src/core/scripts/generateSecret.mjs"
   },
   "imports": {
     "#src/*": "./src/*"
@@ -46,6 +49,11 @@
       ]
     }
   },
+  "env": [
+    "FRONT_END_URL",
+    "DATABASE_URI",
+    "JWT_SECRET"
+  ],
   "devDependencies": {
     "@types/node": "^18.14.5",
     "eslint": "^8.35.0",
@@ -54,6 +62,7 @@
     "vitest": "^0.29.2"
   },
   "dependencies": {
+    "dotenv-cli": "^7.0.0",
     "fastify": "^4.14.1"
   }
 }
