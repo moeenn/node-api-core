@@ -62,7 +62,9 @@
     "vitest": "^0.29.2"
   },
   "dependencies": {
+    "argon2": "^0.30.3",
     "dotenv-cli": "^7.0.0",
-    "fastify": "^4.14.1"
+    "fastify": "^4.14.1",
+    "jsonwebtoken": "^9.0.0"
   }
 }
