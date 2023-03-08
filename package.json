@@ -1,5 +1,5 @@
 {
-  "name": "api-core",
+  "name": "node-api-core",
   "version": "1.0.0",
   "main": "src/index.mjs",
   "license": "MIT",

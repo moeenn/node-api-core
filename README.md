@@ -1,6 +1,8 @@
-# Javascript sandbox
+# Node API Core
 
-A Javascript environment setup mainly aimed at NodeJS applications. Following tools are configured.
+A vanilla Javascript environment boilerplate for NodeJS API. Following tools are already configured
+- Server configuration using ```fastify```
+- Database connection using ```prisma```
 - Absolute paths using NodeJS built-in methods
 - Automated testing using ```vitest```
 - Typechecking using ```jsdoc``` and ```tsc```
