@@ -2,17 +2,17 @@ import jwt from "jsonwebtoken"
 
 export const JWT = {
   /**
-   *  @typedef GenerateArgs
-   *  @property {string} secret
-   *  @property {Record<string, unknown>} payload
-   *  @property {number=} expiredInSeconds
+   * @typedef GenerateArgs
+   * @property {string} secret
+   * @property {Record<string, unknown>} payload
+   * @property {number=} expiredInSeconds
    */
 
   /**
-   *  generate a JWT and sign using a secret key
+   * generate a JWT and sign using a secret key
    *
-   *  @param {GenerateArgs} args
-   *  @returns {Promise<string>}
+   * @param {GenerateArgs} args
+   * @returns {Promise<string>}
    */
   async generate(args) {
     if (args.expiredInSeconds) {
@@ -23,10 +23,10 @@ export const JWT = {
   },
 
   /**
-   *  check if JWT is valid and extract the payload
+   * check if JWT is valid and extract the payload
    *
-   *  @param {{ secret: string, token: string}} args
-   *  @returns {Promise<unknown>}
+   * @param {{ secret: string, token: string}} args
+   * @returns {Promise<unknown>}
    */
   async validate(args) {
     try {

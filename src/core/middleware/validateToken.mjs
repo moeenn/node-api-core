@@ -17,8 +17,8 @@ export async function validateToken(req) {
 }
 
 /**
- *  @param {T.Request} req
- *  @returns {string=}
+ * @param {T.Request} req
+ * @returns {string=}
  */
 function parseBearerToken(req) {
   const header = req.headers["authorization"]

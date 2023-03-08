@@ -4,19 +4,19 @@ import { serverConfig } from "#src/app/config/serverConfig.mjs"
 import rateLimit from "@fastify/rate-limit"
 
 /**
- *  @typedef Context
- *  @property {string} after
- *  @property {number} max
- *  @property {number} ttl
+ * @typedef Context
+ * @property {string} after
+ * @property {number} max
+ * @property {number} ttl
  */
 
 /**
- *  @typedef ExceedResponse
- *  @property {number} code
- *  @property {string} error
- *  @property {string} message
- *  @property {number} date
- *  @property {number} expiresIn
+ * @typedef ExceedResponse
+ * @property {number} code
+ * @property {string} error
+ * @property {string} message
+ * @property {number} date
+ * @property {number} expiresIn
  */
 
 function rateLimitExceedHandler() {

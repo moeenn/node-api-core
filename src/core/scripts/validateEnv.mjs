@@ -1,9 +1,9 @@
 import fs from "node:fs"
 
 /**
- *  read the project's package.json file and return its content
+ * read the project's package.json file and return its content
  *
- *  @returns {{ env: string[] }}
+ * @returns {{ env: string[] }}
  */
 function readPackageJSON() {
   const file = fs.readFileSync("./package.json")
@@ -23,11 +23,11 @@ function readPackageJSON() {
 }
 
 /**
- *  read the defined required environment variables and perform sanity checks
- *  on the provided values
+ * read the defined required environment variables and perform sanity checks
+ * on the provided values
  *
- *  @param {{ env: string[] }} packageJSON
- *  @returns {string[]}
+ * @param {{ env: string[] }} packageJSON
+ * @returns {string[]}
  */
 function extractRequiredEnvVars(packageJSON) {
   const { env: requiredEnv } = packageJSON
@@ -53,11 +53,11 @@ function extractRequiredEnvVars(packageJSON) {
 }
 
 /**
- *  check if all required environment variables are actually present in the
- *  environment
+ * check if all required environment variables are actually present in the
+ * environment
  *
- *  @param {string[]} required
- *  @returns {string[]}
+ * @param {string[]} required
+ * @returns {string[]}
  */
 function validateRequiredEnvVars(required) {
   /** @type {function (any): boolean} */
@@ -77,7 +77,7 @@ function validateRequiredEnvVars(required) {
 }
 
 /**
- *  @returns {Promise<void>}
+ * @returns {Promise<void>}
  *
  */
 async function main() {
