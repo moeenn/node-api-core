@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "dotenv -e .env -- npm run env:check && node ./src/index.mjs",
-    "start": "npm run env:check && node ./src/index.mjs",
+    "start": "NODE_ENV=production npm run env:check && node ./src/index.mjs",
     "type-check": "tsc --project jsconfig.json",
     "test": "npx vitest",
     "lint": "npx eslint ./src/ --ext .mjs",

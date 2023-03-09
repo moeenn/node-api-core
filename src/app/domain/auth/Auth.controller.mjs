@@ -1,19 +1,11 @@
 /* eslint-disable-next-line no-unused-vars */
 import * as T from "#src/index.d.mjs"
+import { schema } from "./Auth.schema.mjs"
 
 export const AuthController = {
   /** @type {T.Route} */
   login: {
-    schema: {
-      body: {
-        type: "object",
-        required: ["email", "password"],
-        properties: {
-          email: { type: "string" },
-          password: { type: "string", minLength: 8 },
-        },
-      },
-    },
+    schema: schema.loginRequest,
     handler: async (req) => {
       /** @type {any} */
       const body = req.body

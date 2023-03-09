@@ -4,5 +4,6 @@
 /** @typedef {import('fastify').DoneFuncWithErrOrRes} Done */
 /** @typedef {function (Request, Reply, Done): void} Middleware */
 /** @typedef {import('fastify').RouteShorthandOptionsWithHandler} Route */
+/** @typedef {import('fastify').FastifySchema} Schema */
 
 export {}
