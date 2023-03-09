@@ -1,4 +1,4 @@
-export const AuthService = {
+export const service = {
   /**
    * @param {string} token
    * @returns {Promise<{userId: number, userRole: string}>}

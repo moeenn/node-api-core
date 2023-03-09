@@ -1,2 +1,7 @@
-export { AuthController } from "./Auth.controller.mjs"
-export { AuthService } from "./Auth.service.mjs"
+import { controller } from "./Auth.controller.mjs"
+import { service } from "./Auth.service.mjs"
+
+export const Auth = {
+  service,
+  controller,
+}

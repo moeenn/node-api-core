@@ -1,7 +1,7 @@
 /* eslint-disable-next-line no-unused-vars */
 import * as t from "#src/index.d.mjs"
 import { AuthException } from "#src/core/exceptions/index.mjs"
-import { AuthService } from "#src/app/domain/auth/index.mjs"
+import { Auth } from "#src/app/domain/auth/index.mjs"
 
 /** @type {t.Middleware} */
 export async function validateToken(req) {
@@ -10,7 +10,7 @@ export async function validateToken(req) {
     throw AuthException("invalid bearer token")
   }
 
-  const { userId, userRole } = await AuthService.validateLoginAuthToken(token)
+  const { userId, userRole } = await Auth.service.validateLoginAuthToken(token)
 
   /* store id of the validated user on the request object */
   req.requestContext.set("user", { id: userId, role: userRole, token })

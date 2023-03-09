@@ -2,7 +2,7 @@
 import * as t from "#src/index.d.mjs"
 import { schema } from "./Auth.schema.mjs"
 
-export const AuthController = {
+export const controller = {
   /** @type {t.Route} */
   login: {
     schema: schema.loginRequest,
