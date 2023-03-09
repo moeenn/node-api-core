@@ -11,6 +11,12 @@
 /** @typedef {import('fastify').FastifySchema} Schema */
 
 /**
+ * misc. types
+ * 
+*/
+/** @typedef {"auth" | "firstPassword" | "passwordReset"} TokenTypes */
+
+/**
  * model types 
  *  
 */

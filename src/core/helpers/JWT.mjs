@@ -26,7 +26,7 @@ export const JWT = {
    * check if JWT is valid and extract the payload
    *
    * @param {{ secret: string, token: string}} args
-   * @returns {Promise<unknown>}
+   * @returns {Promise<any>}
    */
   async validate(args) {
     try {
