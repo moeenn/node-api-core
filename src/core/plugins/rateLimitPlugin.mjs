@@ -1,5 +1,5 @@
 /* eslint-disable-next-line no-unused-vars */
-import * as T from "#src/index.d.mjs"
+import * as t from "#src/index.d.mjs"
 import { serverConfig } from "#src/app/config/serverConfig.mjs"
 import rateLimit from "@fastify/rate-limit"
 
@@ -20,7 +20,7 @@ import rateLimit from "@fastify/rate-limit"
  */
 
 function rateLimitExceedHandler() {
-  /** @type {function(T.Request, Context): ExceedResponse } */
+  /** @type {function(t.Request, Context): ExceedResponse } */
   return (
     /* eslint-disable-next-line no-unused-vars */
     _req,

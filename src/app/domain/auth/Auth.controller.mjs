@@ -1,9 +1,9 @@
 /* eslint-disable-next-line no-unused-vars */
-import * as T from "#src/index.d.mjs"
+import * as t from "#src/index.d.mjs"
 import { schema } from "./Auth.schema.mjs"
 
 export const AuthController = {
-  /** @type {T.Route} */
+  /** @type {t.Route} */
   login: {
     schema: schema.loginRequest,
     handler: async (req) => {

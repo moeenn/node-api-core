@@ -1,13 +1,13 @@
 /* eslint-disable-next-line no-unused-vars */
-import * as T from "#src/index.d.mjs"
+import * as t from "#src/index.d.mjs"
 import { AuthException } from "#src/core/exceptions/index.mjs"
 
 /**
  * @param {string[]} roles
- * @returns {T.Middleware}
+ * @returns {t.Middleware}
  */
 export function hasRole(...roles) {
-  /** @type {T.Middleware} */
+  /** @type {t.Middleware} */
   return (req, reply, done) => {
     const currentRole = req.requestContext.get("userRole")
 

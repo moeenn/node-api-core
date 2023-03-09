@@ -1,5 +1,5 @@
 /* eslint-disable-next-line no-unused-vars */
-import * as T from "#src/index.d.mjs"
+import * as t from "#src/index.d.mjs"
 import Fastify from "fastify"
 import process from "node:process"
 import { serverConfig } from "#src/app/config/serverConfig.mjs"
@@ -10,7 +10,7 @@ import {
 } from "#src/core/plugins/index.mjs"
 
 export const Server = {
-  /** @type {function (): T.Fastify} */
+  /** @type {function (): t.Fastify} */
   new() {
     const server = Fastify({
       logger: true,
@@ -25,7 +25,7 @@ export const Server = {
     return server
   },
 
-  /** @type {function (T.Fastify)} */
+  /** @type {function (t.Fastify)} */
   start(server) {
     server.listen(serverConfig, (err) => {
       if (err) {

@@ -1,8 +1,8 @@
 /* eslint-disable-next-line no-unused-vars */
-import * as T from "#src/index.d.mjs"
+import * as t from "#src/index.d.mjs"
 
 export const schema = {
-  /** @type {T.Schema} */
+  /** @type {t.Schema} */
   loginRequest: {
     body: {
       type: "object",

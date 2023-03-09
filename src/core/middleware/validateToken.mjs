@@ -1,9 +1,9 @@
 /* eslint-disable-next-line no-unused-vars */
-import * as T from "#src/index.d.mjs"
+import * as t from "#src/index.d.mjs"
 import { AuthException } from "#src/core/exceptions/index.mjs"
 import { AuthService } from "#src/app/domain/auth/index.mjs"
 
-/** @type {T.Middleware} */
+/** @type {t.Middleware} */
 export async function validateToken(req) {
   const token = parseBearerToken(req)
   if (!token) {
@@ -17,7 +17,7 @@ export async function validateToken(req) {
 }
 
 /**
- * @param {T.Request} req
+ * @param {t.Request} req
  * @returns {string=}
  */
 function parseBearerToken(req) {
