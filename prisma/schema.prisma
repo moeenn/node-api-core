@@ -14,13 +14,14 @@ enum UserRole {
 
 model Password {
   hash   String
-  userId Int    @unique
+  userId Int    @unique @id
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
   id       Int       @id @default(autoincrement())
   email    String    @unique
+  name     String
   password Password?
   approved Boolean   @default(true)
   userRole UserRole

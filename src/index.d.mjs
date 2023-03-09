@@ -6,4 +6,9 @@
 /** @typedef {import('fastify').RouteShorthandOptionsWithHandler} Route */
 /** @typedef {import('fastify').FastifySchema} Schema */
 
+/** @typedef {import('@prisma/client').Password} Password */
+/** @typedef {import('@prisma/client').User} User */
+/** @typedef {User & { password: Password }} UserWithRelations */
+/** @typedef {"ADMIN" | "USER"} UserRole */
+
 export {}

@@ -12,7 +12,8 @@
     "fmt": "npx prettier --write 'src/**/*.mjs'",
     "check": "npm run type-check && npm run lint",
     "env:check": "node ./src/core/scripts/validateEnv.mjs",
-    "gen:secret": "node ./src/core/scripts/generateSecret.mjs"
+    "gen:secret": "node ./src/core/scripts/generateSecret.mjs",
+    "db:migrate": "npx prisma migrate dev"
   },
   "imports": {
     "#src/*": "./src/*"
@@ -65,6 +66,7 @@
     "@fastify/error": "^3.2.0",
     "@fastify/rate-limit": "^8.0.0",
     "@fastify/request-context": "^4.2.0",
+    "@prisma/client": "^4.11.0",
     "argon2": "^0.30.3",
     "dotenv-cli": "^7.0.0",
     "fastify": "^4.14.1",
