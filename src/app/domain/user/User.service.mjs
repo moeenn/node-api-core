@@ -48,7 +48,7 @@ export const service = {
    * get a single user using email
    * 
    * @param {string} email
-   * @returns {Promise<t.UserWithPassword | undefined>}
+   * @returns {Promise<t.UserWithPassword>}
    */
   async findByEmail(email) {
     const user = await database.user.findFirst({
@@ -113,7 +113,7 @@ export const service = {
       throw BadRequestException("user with email address already registered")
     }
 
-    return await database.user.create({
+    const user = await database.user.create({
       data: {
         name: args.name,
         email: args.email,
@@ -125,6 +125,8 @@ export const service = {
         }
       },
     })
+
+    return user
   },
 
   /**

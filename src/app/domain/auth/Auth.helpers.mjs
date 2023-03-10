@@ -57,6 +57,10 @@ export const helpers = {
         token,
       })
 
+      if (!jwtPayload) {
+        throw ForbiddenException("invalid or expired token")
+      }
+
       const scope = authConfig.tokens[type].scope
       if (!jwtPayload.userId || !jwtPayload.scope || jwtPayload.scope !== scope) {
         throw BadRequestException("invalid password token")
@@ -67,38 +71,32 @@ export const helpers = {
   },
 
   /**
-   *  this function is different from the generateToken function because it also
-   *  encodes the user role inside the token
+   * this function is different from the generateToken function because it also
+   * encodes the user role inside the token
    *
+   * @param {t.TokenTypes} type
+   * @returns {function (string): Promise<{ userId: number; userRole: string }>}
    */
-  validateLoginToken(
-    type: keyof typeof authConfig.tokens,
-  ): (token: string) => Promise<{ userId: number; userRole: string }> {
-    return async (
-      token: string,
-    ): Promise<{ userId: number; userRole: string }> => {
-      const jwtPayload = await JWT.validate(env("JWT_SECRET"), token)
+  validateLoginToken(type) {
+    return async token => {
+      const jwtPayload = await JWT.validate({
+        secret: env("JWT_SECRET"), 
+        token,
+      })
+
       if (!jwtPayload) {
         throw ForbiddenException("invalid or expired token")
       }
 
-      const result = jwtPayload as {
-        userId: number
-        scope: string
-        userRole: string
-      }
       const scope = authConfig.tokens[type].scope
-
-      if (!result.userId || !result.scope || result.scope !== scope) {
+      if (!jwtPayload.userId || !jwtPayload.scope || jwtPayload.scope !== scope) {
         throw BadRequestException("invalid password token")
       }
 
       return {
-        userId: result.userId,
-        userRole: result.userRole,
+        userId: jwtPayload.userId,
+        userRole: jwtPayload.userRole,
       }
     }
   },
-
-
 }
