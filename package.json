@@ -7,11 +7,12 @@
     "dev": "dotenv -e .env -- npm run env:check && node ./src/index.mjs",
     "start": "NODE_ENV=production npm run env:check && node ./src/index.mjs",
     "type-check": "tsc --project jsconfig.json",
-    "test": "npx vitest",
+    "test": "node --test",
     "lint": "npx eslint ./src/ --ext .mjs",
     "fmt": "npx prettier --write 'src/**/*.mjs'",
     "check": "npm run type-check && npm run lint",
     "env:check": "node ./src/core/scripts/validateEnv.mjs",
+    "gen:types": "npx prisma generate",
     "gen:secret": "node ./src/core/scripts/generateSecret.mjs",
     "db:migrate": "npx prisma migrate dev"
   },
@@ -59,8 +60,7 @@
     "@types/node": "^18.14.5",
     "eslint": "^8.35.0",
     "prettier": "^2.8.4",
-    "typescript": "^4.9.5",
-    "vitest": "^0.29.2"
+    "typescript": "^4.9.5"
   },
   "dependencies": {
     "@fastify/error": "^3.2.0",
