@@ -1,4 +1,8 @@
-import { FastifyRequest, FastifyReply, DoneFuncWithErrOrRes } from "fastify"
+/**
+ * @typedef {import("fastify").FastifyRequest} FastifyRequest
+ * @typedef {import("fastify").FastifyReply} FastifyReply
+ * @typedef {import("fastify").DoneFuncWithErrOrRes} DoneFuncWithErrOrRes
+ */
 import { AuthException } from "#src/core/exceptions/index.mjs"
 import { UserRole } from "@prisma/client"
 

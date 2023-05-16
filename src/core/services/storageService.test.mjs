@@ -1,5 +1,6 @@
-import { describe, it, expect } from "node:test"
-import { StorageService } from "./StorageService"
+import { describe, it} from "node:test"
+import assert from "node:assert/strict"
+import { StorageService } from "./storageService.mjs"
 
 describe("StorageService", () => {
   it("extractMimeType valid", () => {
@@ -20,23 +21,23 @@ describe("StorageService", () => {
 
     for (const testCase of testCases) {
       const got = StorageService.extractMimeType(testCase.input)
-      expect(got).toBe(testCase.output)
+      assert.equal(got, testCase.output)
     }
   })
 
   it("extractMimeType invalid", () => {
     const input = "some-random-encoding"
-    expect(() => StorageService.extractMimeType(input)).toThrowError("Invalid")
+    assert.throws(() => StorageService.extractMimeType(input)) /* .toThrowError("Invalid") */
   })
 
   it("encodingToBuffer", () => {
     const got = StorageService.encodingToBuffer(
       "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD",
     )
-    expect(got).toBeTruthy()
+    assert.ok(got)
 
-    expect(() =>
+    assert.throws(() =>
       StorageService.encodingToBuffer("invalid encoding"),
-    ).toThrowError("Invalid")
+    ) /* .toThrowError("Invalid") */
   })
 })

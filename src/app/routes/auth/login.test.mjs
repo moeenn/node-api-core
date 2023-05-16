@@ -1,8 +1,8 @@
+import * as t from "#src/index.d.mjs"
 import { describe, it } from "node:test"
 import assert  from "node:assert" 
 import { db } from "#src/core/database/index.mjs"
 import { Password } from "#src/core/helpers/password.mjs"
-import { Password as Pwd, User } from "@prisma/client"
 import { Server } from "#src/core/server/index.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 
@@ -40,8 +40,8 @@ describe("login", () => {
     assert.equal(res.statusCode, 200)
     const body = /**
       @type {{
-      user: User
-      password: Pwd
+      user: t.User
+      password: t.Password
       token: string
     }}
     */ (JSON.parse(res.body))

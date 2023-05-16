@@ -1,7 +1,7 @@
-import { RouteOptions } from "fastify"
+/** @typedef {import("fastify").RouteOptions} RouteOptions */
 import { validateToken, hasRole } from "#src/core/server/middleware/index.mjs"
 import { UserRole } from "@prisma/client"
-import { FromSchema } from "json-schema-to-ts"
+import jsonSchema from "json-schema-to-ts"
 import { db } from "#src/core/database/index.mjs"
 import { logger } from "#src/core/server/logger/index.mjs"
 import { BadRequestException } from "#src/core/exceptions/index.mjs"
@@ -16,7 +16,7 @@ const bodySchema = /** @type {const} */ ({
   additionalProperties: false,
 })
 
-/** @typedef {FromSchema<typeof bodySchema>} Body */
+/** @typedef {jsonSchema.FromSchema<typeof bodySchema>} Body */
 
 /** @type {RouteOptions} */
 export const setUserStatus = {

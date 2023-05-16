@@ -1,5 +1,5 @@
-import { RouteOptions } from "fastify"
-import { FromSchema } from "json-schema-to-ts"
+/** @typedef {import("fastify").RouteOptions} RouteOptions */
+import jsonSchema from "json-schema-to-ts"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 
 const bodySchema = /** @type {const} */ ({
@@ -11,7 +11,7 @@ const bodySchema = /** @type {const} */ ({
   additionalProperties: false,
 })
 
-/** @typedef {FromSchema<typeof bodySchema>} Body */
+/** @typedef {jsonSchema.FromSchema<typeof bodySchema>} Body */
 
 /** @type {RouteOptions} */
 export const validatePasswordResetToken = {

@@ -1,10 +1,10 @@
+/** @typedef {import("#src/app/emails/forgotPasswordEmail.mjs").ForgotPasswordEmailArgs} ForgotPasswordEmailArgs */
 import { describe, it } from "node:test"
 import assert from "node:assert/strict"
 import { Server } from "#src/core/server/index.mjs"
 import { db } from "#src/core/database/index.mjs"
 import { UserRole } from "@prisma/client"
 import { EmailService } from "#src/core/email/index.mjs"
-import { ForgotPasswordEmailArgs } from "#src/app/emails/forgotPasswordEmail.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 
 describe("requestPasswordReset", () => {

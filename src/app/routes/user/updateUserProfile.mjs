@@ -1,9 +1,9 @@
+/** @typedef {import("fastify").RouteOptions} RouteOptions */
 import { db } from "#src/core/database/index.mjs"
 import { AuthException } from "#src/core/exceptions/index.mjs"
 import { logger } from "#src/core/server/logger/index.mjs"
 import { validateToken } from "#src/core/server/middleware/index.mjs"
-import { RouteOptions } from "fastify"
-import { FromSchema } from "json-schema-to-ts"
+import jsonSchema from "json-schema-to-ts"
 
 const bodySchema = /** @type {const} */ ({
   type: "object",
@@ -15,7 +15,7 @@ const bodySchema = /** @type {const} */ ({
   additionalProperties: false,
 })
 
-/** @typedef {FromSchema<typeof bodySchema>} Body */
+/** @typedef {jsonSchema.FromSchema<typeof bodySchema>} Body */
 
 /** @type {RouteOptions} */
 export const updateUserProfile = {

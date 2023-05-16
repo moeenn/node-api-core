@@ -1,5 +1,7 @@
 import argon2 from "argon2"
-import owasp, { TestResult } from "owasp-password-strength-test"
+import owasp from "owasp-password-strength-test"
+
+/** @typedef {import("owasp-password-strength-test").TestResult} TestResult */
 
 export const Password = {
   /**

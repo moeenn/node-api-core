@@ -1,4 +1,4 @@
-import { RouteOptions } from "fastify"
+/** @typedef {import("fastify").RouteOptions} RouteOptions */
 import { validateToken, hasRole } from "#src/core/server/middleware/index.mjs"
 import { UserRole } from "@prisma/client"
 import { HealthCheckService } from "#src/core/services/healthCheckService.mjs"

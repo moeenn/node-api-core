@@ -1,6 +1,7 @@
-import { describe, it, expect } from "node:test"
-import { SetFirstPasswordEmail } from "./SetFirstPasswordEmail"
-import { appConfig } from "#src/app/config"
+import { describe, it } from "node:test"
+import assert from "node:assert/strict"
+import { SetFirstPasswordEmail } from "./setFirstPasswordEmail.mjs"
+import { appConfig } from "#src/app/config/appConfig.mjs"
 
 describe("SetFirstPasswordEmail test", () => {
   it("email template has all provided fields", () => {
@@ -11,7 +12,7 @@ describe("SetFirstPasswordEmail test", () => {
     const email = new SetFirstPasswordEmail(args)
     const html = email.html()
 
-    expect(html.includes(appConfig.appName)).toBe(true)
-    expect(html.includes(args.passwordToken)).toBe(true)
+    assert.ok(html.includes(appConfig.appName))
+    assert.ok(html.includes(args.passwordToken))
   })
 })

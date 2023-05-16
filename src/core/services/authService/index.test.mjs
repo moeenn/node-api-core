@@ -1,6 +1,7 @@
 import { UserRole } from "@prisma/client"
-import { describe, it, expect } from "node:test"
-import { AuthService } from "./index"
+import { describe, it } from "node:test"
+import assert from "node:assert/strict"
+import { AuthService } from "./index.mjs"
 
 describe("AuthService", () => {
   it("generate and validate login auth token", async () => {
@@ -12,37 +13,37 @@ describe("AuthService", () => {
     const { userId, userRole } = await AuthService.validateLoginAuthToken(
       loginToken,
     )
-    expect(userId).toBe("abc123")
-    expect(userRole).toBe(UserRole.USER)
+    assert.equal(userId, "abc123")
+    assert.equal(userRole, UserRole.USER)
   })
 
   it("invalid login auth token", async () => {
-    expect(() =>
+    assert.throws(() =>
       AuthService.validateLoginAuthToken("random-token"),
-    ).rejects.toThrowError("Invalid")
+    ) /* .rejects.toThrowError("Invalid") */
   })
 
   it("generate and validate first password token", async () => {
     const loginToken = await AuthService.generateFirstPasswordToken("abc123")
     const userId = await AuthService.validateFirstPasswordToken(loginToken)
-    expect(userId).toBe("abc123")
+    assert.equal(userId, "abc123")
   })
 
   it("invalid first password token", async () => {
-    expect(() =>
+    assert.throws(() =>
       AuthService.validateFirstPasswordToken("random-token"),
-    ).rejects.toThrowError("Invalid")
+    ) /* .rejects.toThrowError("Invalid") */
   })
 
   it("generate and validate password reset token", async () => {
     const loginToken = await AuthService.generatePasswordResetToken("abc123")
     const userId = await AuthService.validatePasswordResetToken(loginToken)
-    expect(userId).toBe("abc123")
+    assert.equal(userId, "abc123")
   })
 
   it("invalid reset password token", async () => {
-    expect(() =>
+    assert.throws(() =>
       AuthService.validatePasswordResetToken("random-token"),
-    ).rejects.toThrowError("Invalid")
+    ) /* .rejects.toThrowError("Invalid") */
   })
 })

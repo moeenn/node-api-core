@@ -1,7 +1,7 @@
 import { db } from "#src/core/database/index.mjs"
 import { logger } from "#src/core/server/logger/index.mjs"
-import { RouteOptions } from "fastify"
-import { FromSchema } from "json-schema-to-ts"
+/** @typedef {import("fastify").RouteOptions} RouteOptions */
+import jsonSchema from "json-schema-to-ts"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 import { ForgotPasswordEmail } from "#src/app/emails/forgotPasswordEmail.mjs"
 import { EmailService } from "#src/core/email/index.mjs"
@@ -15,7 +15,7 @@ const bodySchema = /** @type {const} */ ({
   additionalProperties: false,
 })
 
-/** @typedef {FromSchema<typeof bodySchema>} Body */
+/** @typedef {jsonSchema.FromSchema<typeof bodySchema>} Body */
 
 /** @type {RouteOptions} */
 export const requestPasswordReset = {

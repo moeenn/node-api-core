@@ -2,7 +2,7 @@ import { db } from "#src/core/database/index.mjs"
 import { AuthException } from "#src/core/exceptions/index.mjs"
 import { logger } from "#src/core/server/logger/index.mjs"
 import { validateToken } from "#src/core/server/middleware/index.mjs"
-import { RouteOptions } from "fastify"
+/** @typedef {import("fastify").RouteOptions} RouteOptions */
 
 /** @type {RouteOptions} */
 export const getUserProfile = {

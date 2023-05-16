@@ -1,5 +1,5 @@
+/** @typedef {import("./index.d.mjs").SentEmail } SentEmail */
 import { Email } from "./email.mjs"
-import { SentEmail } from "./index.d.mjs"
 
 export class TestableEmailService {
   /** @type {SentEmail[]} */

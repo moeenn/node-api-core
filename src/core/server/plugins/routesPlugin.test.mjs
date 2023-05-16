@@ -1,18 +1,28 @@
-import { describe, it, expect } from "node:test"
-import { routes } from "#src/app/routes"
+import { describe, it } from "node:test"
+import assert from "node:assert/strict"
+import { routes } from "#src/app/routes/index.mjs"
 
 describe("route definitins", () => {
   it("route method and url duplication test", () => {
-    const routeKeys: string[] = routes.map((r) => r.method + " " + r.url)
+
+    /** @type {string[]} */
+    const routeKeys = routes.map((r) => r.method + " " + r.url)
     const duplicates = findDuplicates(routeKeys)
 
-    expect(duplicates).toStrictEqual([])
+    assert.strictEqual(duplicates, [])
   })
 })
 
-function findDuplicates(items: string[]): string[] {
+/**
+ * 
+ * @param {string[]} items 
+ * @returns {string[]}
+ */
+function findDuplicates(items) {
   const inputList = new Set()
-  const duplicates = new Set<string>()
+
+  /** @type {Set<string>} */
+  const duplicates = new Set()
 
   for (const item of items) {
     if (inputList.has(item)) {

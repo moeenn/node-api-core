@@ -1,4 +1,4 @@
-import { RouteOptions } from "fastify"
+/** @typedef {import("fastify").RouteOptions} RouteOptions */
 import { HealthCheckService } from "#src/core/services/healthCheckService.mjs"
 
 /** @type {RouteOptions} */

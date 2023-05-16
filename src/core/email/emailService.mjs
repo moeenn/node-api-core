@@ -1,5 +1,5 @@
+/** @typedef {import("./index.d.mjs").EmailProvider} EmailProvider */
 import { Email } from "./email.mjs"
-import { EmailProvider} from "./index.d.mjs"
 import { TestableEmailService } from "./testableEmailService.mjs"
 import { emailConfig } from "#src/app/config/emailConfig.mjs"
 import { isTest } from "#src/core/helpers/isTest.mjs"

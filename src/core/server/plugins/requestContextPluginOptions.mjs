@@ -1,8 +1,10 @@
-import { FastifyRegisterOptions } from "fastify"
-import { FastifyRequestContextOptions } from "@fastify/request-context"
 import { authConfig } from "#src/app/config/authConfig.mjs"
 
-/** @typedef {FastifyRegisterOptions<FastifyRequestContextOptions>} Options */
+/** 
+ * @typedef {import("@fastify/request-context").FastifyRequestContextOptions} FastifyRequestContextOptions 
+ * @typedef {import("fastify").FastifyRegisterOptions<FastifyRequestContextOptions>} FastifyRegisterOptions
+ * @typedef {FastifyRegisterOptions} Options
+ */
 
 /** @type {Options} */
 export const requestContextPluginOptions = {

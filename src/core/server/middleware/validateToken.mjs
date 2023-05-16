@@ -1,6 +1,6 @@
-import { FastifyRequest } from "fastify"
+/** @typedef {import("fastify").FastifyRequest} FastifyRequest */
 import { AuthException } from "#src/core/exceptions/index.mjs"
-import { AuthService } from "#src/core/services/AuthService/index.mjs"
+import { AuthService } from "#src/core/services/authService/index.mjs"
 
 /** @param {FastifyRequest} req */
 export const validateToken = async (req) => {

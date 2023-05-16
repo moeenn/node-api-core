@@ -4,8 +4,8 @@ import { AuthException, BadRequestException } from "#src/core/exceptions/index.m
 import { Password } from "#src/core/helpers/password.mjs"
 import { logger } from "#src/core/server/logger/index.mjs"
 import { validateToken } from "#src/core/server/middleware/index.mjs"
-import { RouteOptions } from "fastify"
-import { FromSchema } from "json-schema-to-ts"
+/** @typedef {import("fastify").RouteOptions} RouteOptions */
+import jsonSchema from "json-schema-to-ts"
 
 const bodySchema = /** @type {const} */ ({
   type: "object",
@@ -20,7 +20,7 @@ const bodySchema = /** @type {const} */ ({
   additionalProperties: false,
 })
 
-/** @typedef {FromSchema<typeof bodySchema>} Body */
+/** @typedef {jsonSchema.FromSchema<typeof bodySchema>} Body */
 
 /** @type {RouteOptions} */
 export const updatePassword = {

@@ -1,4 +1,4 @@
-import { RouteOptions } from "fastify"
+/** @typedef {import("fastify").RouteOptions} RouteOptions */
 import { healthCheck } from "./healthcheck/healthcheck.mjs"
 import { memoryUsage } from "./healthcheck/memoryUsage.mjs"
 import { passwordStrengthCheck } from "./auth/passwordStrengthCheck.mjs"

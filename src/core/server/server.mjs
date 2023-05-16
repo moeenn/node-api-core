@@ -1,4 +1,4 @@
-import fastify, { FastifyInstance } from "fastify"
+import fastify from "fastify"
 import { fastifyRequestContextPlugin } from "@fastify/request-context"
 import ajvFormats from "ajv-formats"
 import cors from "@fastify/cors"
@@ -13,6 +13,8 @@ import { serverConfig } from "#src/app/config/serverConfig.mjs"
 import process from "node:process"
 
 export const Server = {
+  /** @typedef {import("fastify").FastifyInstance} FastifyInstance */
+
   /** @returns {FastifyInstance} */
   new() {
     /* disable request logging during testing */

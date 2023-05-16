@@ -1,4 +1,4 @@
-import { FastifyRequest } from "fastify"
+/** @typedef {import("fastify").FastifyRequest} FastifyRequest */
 import { serverConfig } from "#src/app/config/serverConfig.mjs"
 
 function rateLimitExceedHandler() {

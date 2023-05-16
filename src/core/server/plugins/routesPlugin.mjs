@@ -1,4 +1,4 @@
-import { FastifyInstance } from "fastify"
+/** @typedef {import("fastify").FastifyInstance} FastifyInstance */
 import { routes } from "#src/app/routes/index.mjs"
 
 export const routesPlugin = {

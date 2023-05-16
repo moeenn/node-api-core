@@ -1,6 +1,6 @@
 /* eslint-ignore-next-line no-unused-vars */
-import { FromSchema } from "json-schema-to-ts"
-import { RouteOptions } from "fastify"
+import jsonSchema from "json-schema-to-ts"
+/** @typedef {import("fastify").RouteOptions} RouteOptions */
 import { authConfig } from "#src/app/config/authConfig.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 import { db } from "#src/core/database/index.mjs"
@@ -22,7 +22,7 @@ const bodySchema = /** @type {const} */ ({
   additionalProperties: false,
 })
 
-/** @typedef {FromSchema<typeof bodySchema>} Body */
+/** @typedef {jsonSchema.FromSchema<typeof bodySchema>} Body */
 
 /** @type {RouteOptions} */
 export const setFirstPassword = {

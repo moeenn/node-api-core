@@ -1,4 +1,4 @@
-import { Seeder } from "#src/core/database/seeder/index.mjs"
+/** @typedef {import("#src/core/database/seeder/index.mjs").Seeder} Seeder */
 import { adminSeeder } from "./adminSeeder.mjs"
 
 /**
