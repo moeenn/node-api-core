@@ -3,6 +3,8 @@ import { db } from "#src/core/database/index.mjs"
 import { AuthException } from "#src/core/exceptions/index.mjs"
 import { logger } from "#src/core/server/logger/index.mjs"
 import { validateToken } from "#src/core/server/middleware/index.mjs"
+
+/* eslint-disable-next-line no-unused-vars */
 import jsonSchema from "json-schema-to-ts"
 
 const bodySchema = /** @type {const} */ ({

@@ -2,7 +2,7 @@ import { authConfig } from "#src/app/config/authConfig.mjs"
 import { JWT, env } from "#src/core/helpers/index.mjs"
 import { BadRequestException, ForbiddenException } from "#src/core/exceptions/index.mjs"
 
-/* eslint-ignore-next-line no-unused-vars */
+/* eslint-disable-next-line no-unused-vars */
 import * as t from "#src/index.d.mjs"
 
 /**

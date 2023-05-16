@@ -7,7 +7,7 @@ function rateLimitExceedHandler() {
    * @param {{ after: string; max: number; ttl: number }} context
    */
   const handler = (
-    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+    /* eslint-disable-next-line no-unused-vars */
     _req,
     context,
   ) => {

@@ -1,10 +1,13 @@
+/** @typedef {import("fastify").RouteOptions} RouteOptions */
+
 import { authConfig } from "#src/app/config/authConfig.mjs"
 import { db } from "#src/core/database/index.mjs"
 import { AuthException, BadRequestException } from "#src/core/exceptions/index.mjs"
 import { Password } from "#src/core/helpers/password.mjs"
 import { logger } from "#src/core/server/logger/index.mjs"
 import { validateToken } from "#src/core/server/middleware/index.mjs"
-/** @typedef {import("fastify").RouteOptions} RouteOptions */
+
+/* eslint-disable-next-line no-unused-vars */
 import jsonSchema from "json-schema-to-ts"
 
 const bodySchema = /** @type {const} */ ({

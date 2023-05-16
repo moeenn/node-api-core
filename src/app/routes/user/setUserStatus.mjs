@@ -1,6 +1,8 @@
 /** @typedef {import("fastify").RouteOptions} RouteOptions */
 import { validateToken, hasRole } from "#src/core/server/middleware/index.mjs"
 import { UserRole } from "@prisma/client"
+
+/* eslint-disable-next-line no-unused-vars */
 import jsonSchema from "json-schema-to-ts"
 import { db } from "#src/core/database/index.mjs"
 import { logger } from "#src/core/server/logger/index.mjs"

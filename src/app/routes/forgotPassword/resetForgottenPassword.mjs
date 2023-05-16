@@ -1,4 +1,6 @@
 /** @typedef {import("fastify").RouteOptions} RouteOptions */
+
+/* eslint-disable-next-line no-unused-vars */
 import jsonSchema from "json-schema-to-ts"
 import { authConfig } from "#src/app/config/authConfig.mjs"
 import { AuthException, BadRequestException } from "#src/core/exceptions/index.mjs"

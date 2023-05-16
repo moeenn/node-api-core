@@ -1,4 +1,6 @@
+/* eslint-disable-next-line no-unused-vars */
 import * as t from "#src/index.d.mjs"
+
 import { describe, it } from "node:test"
 import assert  from "node:assert" 
 import { db } from "#src/core/database/index.mjs"

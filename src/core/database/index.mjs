@@ -12,21 +12,16 @@ import { PrismaClient } from "@prisma/client"
  * instantiated
  */
 
-// declare global {
-//   /* eslint-disable-next-line no-var */
-//   var databaseInstance: PrismaClient
-// }
-
 /** @type {PrismaClient} */
 let db
 
 if (process.env.NODE_ENV === "production") {
   db = new PrismaClient()
 } else {
-  if (!global.databaseInstance) {
-    global.databaseInstance = new PrismaClient()
+  if (!(/** @type {any} */ (global)).databaseInstance) {
+    (/** @type {any} */ (global)).databaseInstance = new PrismaClient()
   }
-  db = global.databaseInstance
+  db = (/** @type {any} */ (global)).databaseInstance
 }
 export { db }
 

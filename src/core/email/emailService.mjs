@@ -1,4 +1,6 @@
 /** @typedef {import("./index.d.mjs").EmailProvider} EmailProvider */
+
+/* eslint-disable-next-line no-unused-vars */
 import { Email } from "./email.mjs"
 import { TestableEmailService } from "./testableEmailService.mjs"
 import { emailConfig } from "#src/app/config/emailConfig.mjs"

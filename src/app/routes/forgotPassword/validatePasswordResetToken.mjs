@@ -1,4 +1,6 @@
 /** @typedef {import("fastify").RouteOptions} RouteOptions */
+
+/* eslint-disable-next-line no-unused-vars */
 import jsonSchema from "json-schema-to-ts"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 

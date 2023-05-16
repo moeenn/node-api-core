@@ -1,5 +1,6 @@
 // TODO: replace with native node fetch
-import axios, { Axios } from "axios"
+/** @typedef {import("axios").Axios} Axios */
+import axios from "axios"
 import Ajv from "ajv"
 import { logger } from "#src/core/server/logger/index.mjs"
 

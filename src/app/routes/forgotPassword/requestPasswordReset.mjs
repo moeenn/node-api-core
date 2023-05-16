@@ -1,6 +1,8 @@
 import { db } from "#src/core/database/index.mjs"
 import { logger } from "#src/core/server/logger/index.mjs"
 /** @typedef {import("fastify").RouteOptions} RouteOptions */
+
+/* eslint-disable-next-line no-unused-vars */
 import jsonSchema from "json-schema-to-ts"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 import { ForgotPasswordEmail } from "#src/app/emails/forgotPasswordEmail.mjs"

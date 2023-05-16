@@ -29,7 +29,7 @@ export const Random = {
    * @returns {Promise<string>}
    */
   async pin(length) {
-    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+    /* eslint-disable-next-line no-unused-vars */
     return [...Array(length)].map((_) => crypto.randomInt(0, 9)).join("")
   },
 }

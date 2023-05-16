@@ -1,5 +1,6 @@
-import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses"
+/* eslint-disable-next-line no-unused-vars */
 import { Email } from "#src/core/email/index.mjs"
+import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses"
 import { awsConfig, emailConfig } from "#src/app/config/index.mjs"
 import { logger } from "#src/core/server/logger/index.mjs"
 

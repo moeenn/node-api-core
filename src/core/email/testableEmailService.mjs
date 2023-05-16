@@ -1,4 +1,6 @@
 /** @typedef {import("./index.d.mjs").SentEmail } SentEmail */
+
+/* eslint-disable-next-line no-unused-vars */
 import { Email } from "./email.mjs"
 
 export class TestableEmailService {

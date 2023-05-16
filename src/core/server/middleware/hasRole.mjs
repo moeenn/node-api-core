@@ -4,10 +4,12 @@
  * @typedef {import("fastify").DoneFuncWithErrOrRes} DoneFuncWithErrOrRes
  */
 import { AuthException } from "#src/core/exceptions/index.mjs"
-import { UserRole } from "@prisma/client"
+
+/* eslint-disable-next-line no-unused-vars */
+import * as t from "#src/index.d.mjs"
 
 /** 
- * @param {UserRole[]} roles
+ * @param {t.UserRole[]} roles
  */
 export const hasRole = (...roles) => {
 
