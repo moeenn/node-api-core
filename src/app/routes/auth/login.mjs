@@ -1,13 +1,14 @@
+/* eslint-ignore-next-line no-unused-vars */
+import jsonSchema from "json-schema-to-ts" 
 import { RouteOptions } from "fastify"
-import { authConfig } from "@/app/config"
-import { FromSchema } from "json-schema-to-ts"
-import { db } from "@/core/database"
-import { AuthException, BadRequestException } from "@/core/exceptions"
-import { Password } from "@/core/helpers"
-import { AuthService } from "@/core/services/AuthService"
-import { logger } from "@/core/server/logger"
+import { authConfig } from "#src/app/config/authConfig.mjs"
+import { db } from "#src/core/database/index.mjs"
+import { AuthException, BadRequestException } from "#src/core/exceptions/index.mjs"
+import { Password } from "#src/core/helpers/password.mjs"
+import { AuthService } from "#src/core/services/authService/index.mjs"
+import { logger } from "#src/core/server/logger/index.mjs"
 
-const bodySchema = {
+const bodySchema = /** @type {const} */ ({
   type: "object",
   properties: {
     email: { type: "string", format: "email" },
@@ -15,11 +16,12 @@ const bodySchema = {
   },
   required: ["email", "password"],
   additionalProperties: false,
-} as const
+})
 
-type Body = FromSchema<typeof bodySchema>
+/** @typedef {jsonSchema.FromSchema<typeof bodySchema>} Body */
 
-export const login: RouteOptions = {
+/** @type {RouteOptions} */
+export const login = {
   url: "/login",
   method: "POST",
   config: {
@@ -32,7 +34,7 @@ export const login: RouteOptions = {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = req.body as Body
+    const body = /** @type {Body} */ (req.body)
 
     const user = await db.user.findFirst({
       where: {

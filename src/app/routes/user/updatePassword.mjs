@@ -1,13 +1,13 @@
-import { authConfig } from "@/app/config"
-import { db } from "@/core/database"
-import { AuthException, BadRequestException } from "@/core/exceptions"
-import { Password } from "@/core/helpers"
-import { logger } from "@/core/server/logger"
-import { validateToken } from "@/core/server/middleware"
+import { authConfig } from "#src/app/config/authConfig.mjs"
+import { db } from "#src/core/database/index.mjs"
+import { AuthException, BadRequestException } from "#src/core/exceptions/index.mjs"
+import { Password } from "#src/core/helpers/password.mjs"
+import { logger } from "#src/core/server/logger/index.mjs"
+import { validateToken } from "#src/core/server/middleware/index.mjs"
 import { RouteOptions } from "fastify"
 import { FromSchema } from "json-schema-to-ts"
 
-const bodySchema = {
+const bodySchema = /** @type {const} */ ({
   type: "object",
   properties: {
     password: { type: "string", minLength: authConfig.password.minLength },
@@ -18,11 +18,12 @@ const bodySchema = {
   },
   required: ["password", "confirmPassword"],
   additionalProperties: false,
-} as const
+})
 
-type Body = FromSchema<typeof bodySchema>
+/** @typedef {FromSchema<typeof bodySchema>} Body */
 
-export const updatePassword: RouteOptions = {
+/** @type {RouteOptions} */
+export const updatePassword = {
   url: "/user/update-password",
   method: "POST",
   config: {
@@ -36,7 +37,7 @@ export const updatePassword: RouteOptions = {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = req.body as Body
+    const body = /** @type {Body} */ (req.body)
     const userId = req.requestContext.get("userId")
 
     if (body.password !== body.confirmPassword) {

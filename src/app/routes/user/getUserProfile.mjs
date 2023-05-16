@@ -1,15 +1,16 @@
-import { db } from "@/core/database"
-import { AuthException } from "@/core/exceptions"
-import { logger } from "@/core/server/logger"
-import { validateToken } from "@/core/server/middleware"
+import { db } from "#src/core/database/index.mjs"
+import { AuthException } from "#src/core/exceptions/index.mjs"
+import { logger } from "#src/core/server/logger/index.mjs"
+import { validateToken } from "#src/core/server/middleware/index.mjs"
 import { RouteOptions } from "fastify"
 
-export const getUserProfile: RouteOptions = {
+/** @type {RouteOptions} */
+export const getUserProfile = {
   url: "/user/profile",
   method: "GET",
   preValidation: [validateToken],
   handler: async (req) => {
-    const userId = req.requestContext.get("userId") as string
+    const userId = /** @type {string} */ (req.requestContext.get("userId"))
     const user = await db.user.findUnique({
       where: {
         id: userId,

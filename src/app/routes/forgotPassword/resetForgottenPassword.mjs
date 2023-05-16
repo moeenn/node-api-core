@@ -1,13 +1,13 @@
 import { RouteOptions } from "fastify"
 import { FromSchema } from "json-schema-to-ts"
-import { authConfig } from "@/app/config"
-import { AuthException, BadRequestException } from "@/core/exceptions"
-import { AuthService } from "@/core/services/AuthService"
-import { db } from "@/core/database"
-import { logger } from "@/core/server/logger"
-import { Password } from "@/core/helpers"
+import { authConfig } from "#src/app/config/authConfig.mjs"
+import { AuthException, BadRequestException } from "#src/core/exceptions/index.mjs"
+import { AuthService } from "#src/core/services/authService/index.mjs"
+import { db } from "#src/core/database/index.mjs"
+import { logger } from "#src/core/server/logger/index.mjs"
+import { Password } from "#src/core/helpers/password.mjs"
 
-const bodySchema = {
+const bodySchema = /** @type {const} */ ({
   type: "object",
   properties: {
     token: { type: "string" },
@@ -19,18 +19,19 @@ const bodySchema = {
   },
   required: ["token", "password", "confirmPassword"],
   additionalProperties: false,
-} as const
+})
 
-type Body = FromSchema<typeof bodySchema>
+/** @typedef {FromSchema<typeof bodySchema>} Body */
 
-export const resetForgottenPassword: RouteOptions = {
+/** @type {RouteOptions} */
+export const resetForgottenPassword = {
   url: "/forgot-password/reset-password",
   method: "POST",
   schema: {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = req.body as Body
+    const body = /** @type {Body} */ (req.body)
 
     if (body.password !== body.confirmPassword) {
       throw BadRequestException("Password confirmation failed")

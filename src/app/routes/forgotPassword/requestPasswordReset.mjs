@@ -1,30 +1,31 @@
-import { db } from "@/core/database"
-import { logger } from "@/core/server/logger"
+import { db } from "#src/core/database/index.mjs"
+import { logger } from "#src/core/server/logger/index.mjs"
 import { RouteOptions } from "fastify"
 import { FromSchema } from "json-schema-to-ts"
-import { AuthService } from "@/core/services/AuthService"
-import { ForgotPasswordEmail } from "@/app/emails"
-import { EmailService } from "@/core/email"
+import { AuthService } from "#src/core/services/authService/index.mjs"
+import { ForgotPasswordEmail } from "#src/app/emails/forgotPasswordEmail.mjs"
+import { EmailService } from "#src/core/email/index.mjs"
 
-const bodySchema = {
+const bodySchema = /** @type {const} */ ({
   type: "object",
   properties: {
     email: { type: "string", format: "email" },
   },
   required: ["email"],
   additionalProperties: false,
-} as const
+})
 
-type Body = FromSchema<typeof bodySchema>
+/** @typedef {FromSchema<typeof bodySchema>} Body */
 
-export const requestPasswordReset: RouteOptions = {
+/** @type {RouteOptions} */
+export const requestPasswordReset = {
   url: "/forgot-password/request-reset",
   method: "POST",
   schema: {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = req.body as Body
+    const body = /** @type {Body} */ (req.body)
 
     const user = await db.user.findUnique({
       where: {

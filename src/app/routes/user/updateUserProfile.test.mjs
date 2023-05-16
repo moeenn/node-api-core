@@ -1,17 +1,17 @@
 import { describe, it, expect, afterAll } from "vitest"
-import { Server } from "@/core/server"
-import { db } from "@/core/database"
+import { Server } from "#src/core/server"
+import { db } from "#src/core/database/index.mjs"
 import { UserRole } from "@prisma/client"
-import { AuthService } from "@/core/services/AuthService"
+import { AuthService } from "#src/core/services/authService/index.mjs"
 
-describe("memoryUsage", () => {
+describe("updateUserProfile", () => {
   const server = Server.new()
-  const url = "/api/health-check/memory"
-  const method = "GET"
+  const url = "/api/user/profile"
+  const method = "PUT"
 
   afterAll(() => server.close())
 
-  it("admin auth token is required", async () => {
+  it("valid request", async () => {
     /** setup */
     const user = await db.user.create({
       data: {
@@ -27,14 +27,23 @@ describe("memoryUsage", () => {
     )
 
     /** test */
+    const updatedName = "Updated Name"
     const res = await server.inject({
       url,
       method,
       headers: {
         authorization: "Bearer " + authToken,
       },
+      payload: {
+        name: updatedName,
+      },
     })
-    expect(res.statusCode).toBe(401)
+    expect(res.statusCode).toBe(200)
+
+    const updatedUser = await db.user.findUnique({
+      where: { id: user.id },
+    })
+    expect(updatedUser?.name).toBe(updatedName)
 
     /** cleanup */
     await db.user.delete({ where: { id: user.id } })

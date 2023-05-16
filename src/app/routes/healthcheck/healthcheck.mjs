@@ -1,7 +1,8 @@
 import { RouteOptions } from "fastify"
-import { HealthCheckService } from "@/core/services/HealthCheckService"
+import { HealthCheckService } from "#src/core/services/healthCheckService.mjs"
 
-export const healthCheck: RouteOptions = {
+/** @type {RouteOptions} */
+export const healthCheck = {
   url: "/health-check",
   method: "GET",
   handler: async () => {

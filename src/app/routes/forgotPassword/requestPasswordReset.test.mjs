@@ -1,10 +1,10 @@
 import { describe, it, expect, afterAll } from "vitest"
-import { Server } from "@/core/server"
-import { db } from "@/core/database"
+import { Server } from "#src/core/server"
+import { db } from "#src/core/database/index.mjs"
 import { UserRole } from "@prisma/client"
-import { EmailService } from "@/core/email"
-import { ForgotPasswordEmailArgs } from "@/app/emails"
-import { AuthService } from "@/core/services/AuthService"
+import { EmailService } from "#src/core/email"
+import { ForgotPasswordEmailArgs } from "#src/app/emails"
+import { AuthService } from "#src/core/services/authService/index.mjs"
 
 describe("requestPasswordReset", () => {
   const server = Server.new()

@@ -1,26 +1,27 @@
 import { RouteOptions } from "fastify"
 import { FromSchema } from "json-schema-to-ts"
-import { AuthService } from "@/core/services/AuthService"
+import { AuthService } from "#src/core/services/authService/index.mjs"
 
-const bodySchema = {
+const bodySchema = /** @type {const} */ ({
   type: "object",
   properties: {
     token: { type: "string" },
   },
   required: ["token"],
   additionalProperties: false,
-} as const
+})
 
-type Body = FromSchema<typeof bodySchema>
+/** @typedef {FromSchema<typeof bodySchema>} Body */
 
-export const validatePasswordResetToken: RouteOptions = {
+/** @type {RouteOptions} */
+export const validatePasswordResetToken = {
   url: "/forgot-password/validate-reset-token",
   method: "POST",
   schema: {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = req.body as Body
+    const body = /** @type {Body} */ (req.body)
     const isValid = await AuthService.validatePasswordResetToken(body.token)
 
     return {

@@ -1,6 +1,6 @@
 import { Seeder } from "#src/core/database/seeder/index.mjs"
 import { UserRole } from "@prisma/client"
-import { Password } from "#src/core/helpers/Password.mjs"
+import { Password } from "#src/core/helpers/password.mjs"
 
 /** @type {Seeder} */
 export const adminSeeder = async (client) => {

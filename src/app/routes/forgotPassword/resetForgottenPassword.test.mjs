@@ -1,9 +1,9 @@
 import { describe, it, expect, afterAll } from "vitest"
-import { Server } from "@/core/server"
-import { db } from "@/core/database"
+import { Server } from "#src/core/server"
+import { db } from "#src/core/database/index.mjs"
 import { UserRole } from "@prisma/client"
-import { AuthService } from "@/core/services/AuthService"
-import { Password } from "@/core/helpers"
+import { AuthService } from "#src/core/services/authService/index.mjs"
+import { Password } from "#src/core/helpers"
 
 describe("resetForgottenPassword", () => {
   const server = Server.new()

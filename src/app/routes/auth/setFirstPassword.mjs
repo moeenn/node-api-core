@@ -1,13 +1,14 @@
-import { RouteOptions } from "fastify"
-import { authConfig } from "@/app/config"
+/* eslint-ignore-next-line no-unused-vars */
 import { FromSchema } from "json-schema-to-ts"
-import { AuthService } from "@/core/services/AuthService"
-import { db } from "@/core/database"
-import { Password } from "@/core/helpers"
-import { logger } from "@/core/server/logger"
-import { BadRequestException } from "@/core/exceptions"
+import { RouteOptions } from "fastify"
+import { authConfig } from "#src/app/config/authConfig.mjs"
+import { AuthService } from "#src/core/services/authService/index.mjs"
+import { db } from "#src/core/database/index.mjs"
+import { Password } from "#src/core/helpers/password.mjs"
+import { logger } from "#src/core/server/logger/index.mjs"
+import { BadRequestException } from "#src/core/exceptions/index.mjs"
 
-const bodySchema = {
+const bodySchema = /** @type {const} */ ({
   type: "object",
   properties: {
     passwordToken: { type: "string" },
@@ -19,18 +20,19 @@ const bodySchema = {
   },
   required: ["passwordToken", "password", "confirmPassword"],
   additionalProperties: false,
-} as const
+})
 
-type Body = FromSchema<typeof bodySchema>
+/** @typedef {FromSchema<typeof bodySchema>} Body */
 
-export const setFirstPassword: RouteOptions = {
+/** @type {RouteOptions} */
+export const setFirstPassword = {
   url: "/user/configure",
   method: "POST",
   schema: {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = req.body as Body
+    const body = /** @type {Body} */ (req.body)
 
     if (body.password !== body.confirmPassword) {
       throw BadRequestException("Password confirmation failed")

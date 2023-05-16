@@ -1,12 +1,12 @@
 import { RouteOptions } from "fastify"
-import { validateToken, hasRole } from "@/core/server/middleware"
+import { validateToken, hasRole } from "#src/core/server/middleware/index.mjs"
 import { UserRole } from "@prisma/client"
 import { FromSchema } from "json-schema-to-ts"
-import { db } from "@/core/database"
-import { logger } from "@/core/server/logger"
-import { BadRequestException } from "@/core/exceptions"
+import { db } from "#src/core/database/index.mjs"
+import { logger } from "#src/core/server/logger/index.mjs"
+import { BadRequestException } from "#src/core/exceptions/index.mjs"
 
-const bodySchema = {
+const bodySchema = /** @type {const} */ ({
   type: "object",
   properties: {
     userId: { type: "string", format: "uuid" },
@@ -14,11 +14,12 @@ const bodySchema = {
   },
   required: ["userId", "status"],
   additionalProperties: false,
-} as const
+})
 
-type Body = FromSchema<typeof bodySchema>
+/** @typedef {FromSchema<typeof bodySchema>} Body */
 
-export const setUserStatus: RouteOptions = {
+/** @type {RouteOptions} */
+export const setUserStatus = {
   url: "/user/set-status",
   method: "POST",
   preValidation: [validateToken, hasRole(UserRole.ADMIN)],
@@ -26,7 +27,7 @@ export const setUserStatus: RouteOptions = {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = req.body as Body
+    const body = /** @type {Body} */ (req.body)
 
     const user = await db.user.findFirst({
       where: {

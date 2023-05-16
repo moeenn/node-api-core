@@ -1,9 +1,9 @@
-import { db } from "@/core/database"
-import { Password } from "@/core/helpers"
+import { db } from "#src/core/database/index.mjs"
+import { Password } from "#src/core/helpers"
 import { Password as Pwd, User } from "@prisma/client"
 import { describe, it, expect, afterAll } from "vitest"
-import { Server } from "@/core/server"
-import { AuthService } from "@/core/services/AuthService"
+import { Server } from "#src/core/server"
+import { AuthService } from "#src/core/services/authService/index.mjs"
 
 describe("login", () => {
   const server = Server.new()

@@ -1,6 +1,6 @@
 import axios, { Axios } from "axios"
 import Ajv from "ajv"
-import { logger } from "@/core/server/logger"
+import { logger } from "#src/core/server/logger/index.mjs"
 import { IAPIService } from "./IAPIService"
 
 /**

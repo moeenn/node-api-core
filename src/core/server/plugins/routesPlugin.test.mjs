@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest"
-import { routes } from "@/app/routes"
+import { routes } from "#src/app/routes"
 
 describe("route definitins", () => {
   it("route method and url duplication test", () => {

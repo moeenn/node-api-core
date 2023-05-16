@@ -1,22 +1,23 @@
 import { RouteOptions } from "fastify"
-import { healthCheck } from "./healthcheck/healthcheck"
-import { memoryUsage } from "./healthcheck/memoryUsage"
-import { passwordStrengthCheck } from "./auth/passwordStrengthCheck"
-import { login } from "./auth/login"
-import { setFirstPassword } from "./auth/setFirstPassword"
-import { requestPasswordReset } from "./forgotPassword/requestPasswordReset"
-import { validatePasswordResetToken } from "./forgotPassword/validatePasswordResetToken"
-import { resetForgottenPassword } from "./forgotPassword/resetForgottenPassword"
-import { getUserProfile } from "./user/getUserProfile"
-import { setUserStatus } from "./user/setUserStatus"
-import { updatePassword } from "./user/updatePassword"
-import { updateUserProfile } from "./user/updateUserProfile"
+import { healthCheck } from "./healthcheck/healthcheck.mjs"
+import { memoryUsage } from "./healthcheck/memoryUsage.mjs"
+import { passwordStrengthCheck } from "./auth/passwordStrengthCheck.mjs"
+import { login } from "./auth/login.mjs"
+import { setFirstPassword } from "./auth/setFirstPassword.mjs"
+import { requestPasswordReset } from "./forgotPassword/requestPasswordReset.mjs"
+import { validatePasswordResetToken } from "./forgotPassword/validatePasswordResetToken.mjs"
+import { resetForgottenPassword } from "./forgotPassword/resetForgottenPassword.mjs"
+import { getUserProfile } from "./user/getUserProfile.mjs"
+import { setUserStatus } from "./user/setUserStatus.mjs"
+import { updatePassword } from "./user/updatePassword.mjs"
+import { updateUserProfile } from "./user/updateUserProfile.mjs"
 
 /**
  * register all routes here
- *
+ * 
+ * @type {RouteOptions[]}
  */
-export const routes: RouteOptions[] = [
+export const routes = [
   healthCheck,
   memoryUsage,
   passwordStrengthCheck,

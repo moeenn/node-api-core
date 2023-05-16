@@ -1,5 +1,5 @@
 import { describe, it, expect, afterAll } from "vitest"
-import { Server } from "@/core/server"
+import { Server } from "#src/core/server"
 
 describe("passwordStrengthCheck", async () => {
   const server = Server.new()
