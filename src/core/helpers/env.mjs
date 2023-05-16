@@ -1,7 +1,7 @@
 /**
  * help in reading environment variables
  * if the requested env variable is not set then error is thrown
- *
+ * 
  * @param {string} key
  * @returns {string}
  */

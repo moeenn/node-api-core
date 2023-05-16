@@ -1,6 +1,1 @@
 node_modules/
-package-lock.json
-.env
-.env.prod
-docker-volume
-prisma/migrations
