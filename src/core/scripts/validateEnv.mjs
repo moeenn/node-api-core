@@ -2,7 +2,7 @@ import fs from "node:fs"
 
 /**
  * read the project's package.json file and return its content
- * 
+ *
  * @returns {{ env: any }}
  */
 function readPackageJSON() {
@@ -58,7 +58,6 @@ function extractRequiredEnvVars(packageJSON) {
  * @param {string[]} required
  */
 function validateRequiredEnvVars(required) {
-
   /** @param {unknown} value */
   const isEmpty = (value) => value == null || value == undefined || value == ""
 

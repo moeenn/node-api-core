@@ -1,11 +1,11 @@
 /* eslint-disable-next-line no-unused-vars */
-import jsonSchema from "json-schema-to-ts" 
+import jsonSchema from "json-schema-to-ts"
 
 /** @typedef {import("fastify").RouteOptions} RouteOptions */
 import { Password } from "#src/core/helpers/password.mjs"
 import { authConfig } from "#src/app/config/authConfig.mjs"
 
-const bodySchema = /** @type {const} */({
+const bodySchema = /** @type {const} */ ({
   type: "object",
   properties: {
     password: { type: "string" },

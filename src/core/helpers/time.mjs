@@ -6,9 +6,9 @@ export class Time {
   minutes
 
   /**
-   * 
-   * @param {number} hours 
-   * @param {number} minutes 
+   *
+   * @param {number} hours
+   * @param {number} minutes
    */
   constructor(hours, minutes) {
     if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
@@ -19,9 +19,9 @@ export class Time {
     this.minutes = minutes
   }
 
-  /** 
+  /**
    * parse provided string as Time
-   * 
+   *
    * @param {string} time
    * @returns {Time | undefined}
    */
@@ -30,12 +30,11 @@ export class Time {
     if (pieces.length !== 2) return
 
     /**
-     * 
-     * @param {string} raw 
+     *
+     * @param {string} raw
      * @returns {number | undefined}
      */
-    const parse = (raw) =>
-      !isNaN(parseInt(raw)) ? parseInt(raw) : undefined
+    const parse = (raw) => (!isNaN(parseInt(raw)) ? parseInt(raw) : undefined)
     const hours = parse(pieces[0])
     const minutes = parse(pieces[1])
 
@@ -56,17 +55,17 @@ export class Time {
 
   /**
    * calculate cumulative minutes for the day from parsed time
-   * 
-   * @returns {number} 
+   *
+   * @returns {number}
    */
   toMins() {
     return this.hours * 60 + this.minutes
   }
 
   /**
-   * 
-   * @param {number} durationHours 
-   * @param {number} durationMinutes 
+   *
+   * @param {number} durationHours
+   * @param {number} durationMinutes
    * @returns {Time}
    */
   addDuration(durationHours, durationMinutes) {
@@ -79,17 +78,13 @@ export class Time {
   }
 
   /**
-   * 
-   * @param {string} startTime 
-   * @param {number} durationHours 
-   * @param {number} durationMinutes 
+   *
+   * @param {string} startTime
+   * @param {number} durationHours
+   * @param {number} durationMinutes
    * @returns {string | undefined}
    */
-  static addDurationToTimeString(
-    startTime,
-    durationHours,
-    durationMinutes,
-  ) {
+  static addDurationToTimeString(startTime, durationHours, durationMinutes) {
     const parsedStart = this.parseString(startTime)
     if (!parsedStart) return
 
@@ -100,9 +95,9 @@ export class Time {
 
   /**
    * calculate difference between two Time objects
-   * 
-   * @param {Time} start 
-   * @param {Time} end 
+   *
+   * @param {Time} start
+   * @param {Time} end
    * @returns {Time}
    */
   static timeDelta(start, end) {
@@ -119,8 +114,8 @@ export class Time {
   }
 
   /**
-   * 
-   * @param {Time} time 
+   *
+   * @param {Time} time
    * @returns {Time}
    */
   static timeToMidnight(time) {
@@ -131,17 +126,13 @@ export class Time {
 
   /**
    * start and end minutes are included
-   * 
-   * @param {Time} start 
-   * @param {Time} end 
-   * @param {Time} current 
+   *
+   * @param {Time} start
+   * @param {Time} end
+   * @param {Time} current
    * @returns {boolean}
    */
-  static isWithinTimeRange(
-    start,
-    end,
-    current,
-  ) {
+  static isWithinTimeRange(start, end, current) {
     const currentMins = current.toMins()
     return currentMins >= start.toMins() && currentMins <= end.toMins()
   }

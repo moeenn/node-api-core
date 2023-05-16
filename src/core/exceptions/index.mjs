@@ -1,8 +1,8 @@
 import createError from "@fastify/error"
 
 /**
- * @param {string} code 
- * @param {number} statusCode 
+ * @param {string} code
+ * @param {number} statusCode
  */
 function generateError(code, statusCode) {
   /** @param {string} message */

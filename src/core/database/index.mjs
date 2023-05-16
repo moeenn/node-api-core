@@ -18,17 +18,17 @@ let db
 if (process.env.NODE_ENV === "production") {
   db = new PrismaClient()
 } else {
-  if (!(/** @type {any} */ (global)).databaseInstance) {
-    (/** @type {any} */ (global)).databaseInstance = new PrismaClient()
+  if (!/** @type {any} */ (global).databaseInstance) {
+    ;/** @type {any} */ (global).databaseInstance = new PrismaClient()
   }
-  db = (/** @type {any} */ (global)).databaseInstance
+  db = /** @type {any} */ (global).databaseInstance
 }
 export { db }
 
 /**
  * check if database is successfully connected with the application
- * 
- * @param {PrismaClient} client 
+ *
+ * @param {PrismaClient} client
  * @returns {Promise<boolean>}
  */
 export async function ping(client) {

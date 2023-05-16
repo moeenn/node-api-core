@@ -24,7 +24,7 @@ export const Random = {
 
   /**
    * generate a fixed length numeric pin
-   * 
+   *
    * @param {number} length
    * @returns {Promise<string>}
    */

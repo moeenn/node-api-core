@@ -18,8 +18,8 @@ export const validateToken = async (req) => {
 }
 
 /**
- * 
- * @param {FastifyRequest} req 
+ *
+ * @param {FastifyRequest} req
  * @returns {string | undefined}
  */
 function parseBearerToken(req) {

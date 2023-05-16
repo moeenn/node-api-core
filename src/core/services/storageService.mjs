@@ -15,7 +15,7 @@ export const StorageService = {
 
   /**
    * upload a file to S3 bucket, if the upload fails, this function can throw
-   * 
+   *
    * @param {string} filename
    * @param {Buffer} fileData
    * @returns {Promise<string | undefined>}
@@ -50,10 +50,7 @@ export const StorageService = {
    * @param {string} encoding
    * @returns {Promise<string | undefined>}
    */
-  async uploadBase64(
-    filename,
-    encoding,
-  ) {
+  async uploadBase64(filename, encoding) {
     const buffer = this.encodingToBuffer(encoding)
     if (isTest()) {
       return "FAKE-" + this.calculatePublicURL(filename)
@@ -83,7 +80,7 @@ export const StorageService = {
    * the full URL for uploaded file can be easily determined
    * the above upload mechanism doesn't return the public location for the
    * file so we calculate it locally
-   * 
+   *
    * @param {string} filename
    * @returns {string}
    */
@@ -109,7 +106,7 @@ export const StorageService = {
 
   /**
    * convert base64 encoding into binary buffer
-   * 
+   *
    * @param {string} encoding
    * @returns {Buffer}
    */

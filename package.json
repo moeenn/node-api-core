@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./src/index.mjs",
     "type-check": "tsc --project jsconfig.json",
-    "test": "node --test",
+    "test": "NODE_ENV='test' dotenv -e .env -- node --test",
     "lint": "npx eslint ./src/ --ext .mjs",
     "fmt": "npx prettier --write 'src/**/*.mjs'",
     "check": "npm run type-check && npm run lint",
@@ -57,6 +57,7 @@
     "@types/marked": "^4.3.0",
     "@types/node": "^18.14.5",
     "@types/owasp-password-strength-test": "^1.3.0",
+    "dotenv-cli": "^7.2.1",
     "eslint": "^8.35.0",
     "json-schema-to-ts": "^2.8.2",
     "prettier": "^2.8.4",
@@ -76,6 +77,7 @@
     "argon2": "^0.30.3",
     "axios": "^1.4.0",
     "fastify": "^4.17.0",
+    "jsonwebtoken": "^9.0.0",
     "marked": "^5.0.2",
     "owasp-password-strength-test": "^1.3.0"
   }

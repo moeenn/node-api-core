@@ -19,9 +19,9 @@ export class APIService {
   _baseURL
 
   /**
-   * 
-   * @param {string} baseURL 
-   * @param {number} [timeoutSeconds] 
+   *
+   * @param {string} baseURL
+   * @param {number} [timeoutSeconds]
    */
   constructor(baseURL, timeoutSeconds = 5) {
     this._baseURL = baseURL
@@ -32,8 +32,8 @@ export class APIService {
 
   /**
    * @template T
-   * @param {Record<string, unknown>} schema 
-   * @param {unknown} data 
+   * @param {Record<string, unknown>} schema
+   * @param {unknown} data
    * @returns {Error | T}
    */
   validate(schema, data) {
@@ -52,15 +52,12 @@ export class APIService {
   }
 
   /**
-   * 
-   * @param {string} url 
-   * @param {string | undefined} [bearerToken] 
+   *
+   * @param {string} url
+   * @param {string | undefined} [bearerToken]
    * @returns {Promise<Record<string, unknown> | Error>}
    */
-  async get(
-    url,
-    bearerToken = undefined,
-  ) {
+  async get(url, bearerToken = undefined) {
     const targetURL = this._baseURL + url
 
     try {
@@ -81,17 +78,13 @@ export class APIService {
   }
 
   /**
-   * 
-   * @param {string} url 
-   * @param {unknown} payload 
-   * @param {string | undefined} [bearerToken] 
+   *
+   * @param {string} url
+   * @param {unknown} payload
+   * @param {string | undefined} [bearerToken]
    * @returns {Promise<Record<string, unknown> | Error>}
    */
-  async post(
-    url,
-    payload,
-    bearerToken = undefined,
-  ) {
+  async post(url, payload, bearerToken = undefined) {
     const targetURL = this._baseURL + url
 
     try {
@@ -112,17 +105,13 @@ export class APIService {
   }
 
   /**
-   * 
-   * @param {string} url 
-   * @param {unknown} payload 
-   * @param {string | undefined} bearerToken 
+   *
+   * @param {string} url
+   * @param {unknown} payload
+   * @param {string | undefined} bearerToken
    * @returns {Promise<Record<string, unknown> | Error>}
    */
-  async put(
-    url,
-    payload,
-    bearerToken = undefined,
-  ) {
+  async put(url, payload, bearerToken = undefined) {
     const targetURL = this._baseURL + url
 
     try {
@@ -143,15 +132,12 @@ export class APIService {
   }
 
   /**
-   * 
-   * @param {string} url 
-   * @param {string | undefined} bearerToken 
+   *
+   * @param {string} url
+   * @param {string | undefined} bearerToken
    * @returns {Promise<Record<string, unknown> | Error> }
    */
-  async delete(
-    url,
-    bearerToken = undefined,
-  ) {
+  async delete(url, bearerToken = undefined) {
     const targetURL = this._baseURL + url
 
     try {

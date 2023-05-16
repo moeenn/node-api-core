@@ -18,9 +18,9 @@ describe("AuthService", () => {
   })
 
   it("invalid login auth token", async () => {
-    assert.throws(() =>
-      AuthService.validateLoginAuthToken("random-token"),
-    ) /* .rejects.toThrowError("Invalid") */
+    assert.rejects(() => AuthService.validateLoginAuthToken("random-token"), {
+      message: /Invalid/,
+    })
   })
 
   it("generate and validate first password token", async () => {
@@ -30,9 +30,10 @@ describe("AuthService", () => {
   })
 
   it("invalid first password token", async () => {
-    assert.throws(() =>
-      AuthService.validateFirstPasswordToken("random-token"),
-    ) /* .rejects.toThrowError("Invalid") */
+    assert.rejects(
+      () => AuthService.validateFirstPasswordToken("random-token"),
+      { message: /Invalid/ },
+    )
   })
 
   it("generate and validate password reset token", async () => {
@@ -42,8 +43,9 @@ describe("AuthService", () => {
   })
 
   it("invalid reset password token", async () => {
-    assert.throws(() =>
-      AuthService.validatePasswordResetToken("random-token"),
-    ) /* .rejects.toThrowError("Invalid") */
+    assert.rejects(
+      () => AuthService.validatePasswordResetToken("random-token"),
+      { message: /Invalid/ },
+    )
   })
 })

@@ -3,17 +3,13 @@ import jwt from "jsonwebtoken"
 export const JWT = {
   /**
    * generate a JWT and sign using a secret key
-   * 
+   *
    * @param {string} secret
    * @param {Record<string, unknown>} payload
    * @param {number} [expiredInSeconds]
    * @returns {Promise<string>}
    */
-  async generate(
-    secret,
-    payload,
-    expiredInSeconds,
-  ) {
+  async generate(secret, payload, expiredInSeconds) {
     if (expiredInSeconds) {
       jwt.sign(payload, secret, { expiresIn: expiredInSeconds })
     }

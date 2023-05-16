@@ -3,7 +3,7 @@ import { adminSeeder } from "./adminSeeder.mjs"
 
 /**
  * register all enabled seeders here
- * 
+ *
  * @type {Seeder[]}
  */
 export const defaultSeeders = [adminSeeder]

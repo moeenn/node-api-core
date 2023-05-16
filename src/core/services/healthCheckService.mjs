@@ -4,7 +4,7 @@ import { db, ping } from "#src/core/database/index.mjs"
 export const HealthCheckService = {
   /**
    * check status of the API and its connection with the database
-   * 
+   *
    */
   async healthcheck() {
     const isConnected = await ping(db)
@@ -25,7 +25,7 @@ export const HealthCheckService = {
     /**
      * @param {number} n
      * @returns {number}
-    */
+     */
     const toMB = (n) => Math.round((n / 1024 / 1024) * 100) / 100
     const used = process.memoryUsage()
 

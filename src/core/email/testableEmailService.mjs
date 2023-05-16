@@ -17,9 +17,9 @@ export class TestableEmailService {
   }
 
   /**
-   * 
-   * @param {string} to 
-   * @param {Email} email 
+   *
+   * @param {string} to
+   * @param {Email} email
    */
   storeEmail(to, email) {
     this.emails.push({ to, email })

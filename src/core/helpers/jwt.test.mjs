@@ -12,7 +12,9 @@ describe("JWT", () => {
     const token = await JWT.generate(secret, payload)
     assert.equal(typeof token, "string")
 
-    const result = /** @type {{ id: number }} */ (await JWT.validate(secret, token))
+    const result = /** @type {{ id: number }} */ (
+      await JWT.validate(secret, token)
+    )
     assert.equal(result.id, payload.id)
   })
 
@@ -23,7 +25,9 @@ describe("JWT", () => {
     }
 
     const token = await JWT.generate(secret, payload)
-    const result = /** @type {{ id: number }} */ (await JWT.validate(secret + "111", token))
+    const result = /** @type {{ id: number }} */ (
+      await JWT.validate(secret + "111", token)
+    )
     assert.equal(result, undefined)
   })
 })

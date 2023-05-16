@@ -2,17 +2,14 @@
  * @typedef {import("fastify").FastifyRequest} FastifyRequest
  * @typedef {import("fastify").FastifyReply} FastifyReply
  * @typedef {import("fastify").DoneFuncWithErrOrRes} DoneFuncWithErrOrRes
+ * @typedef {import("@prisma/client").UserRole} UserRole
  */
 import { AuthException } from "#src/core/exceptions/index.mjs"
 
-/* eslint-disable-next-line no-unused-vars */
-import * as t from "#src/index.d.mjs"
-
-/** 
- * @param {t.UserRole[]} roles
+/**
+ * @param {UserRole[]} roles
  */
 export const hasRole = (...roles) => {
-
   /**
    * @param {FastifyRequest} req
    * @param {FastifyReply} _reply

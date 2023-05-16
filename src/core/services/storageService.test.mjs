@@ -1,4 +1,4 @@
-import { describe, it} from "node:test"
+import { describe, it } from "node:test"
 import assert from "node:assert/strict"
 import { StorageService } from "./storageService.mjs"
 
@@ -27,7 +27,9 @@ describe("StorageService", () => {
 
   it("extractMimeType invalid", () => {
     const input = "some-random-encoding"
-    assert.throws(() => StorageService.extractMimeType(input)) /* .toThrowError("Invalid") */
+    assert.throws(() =>
+      StorageService.extractMimeType(input),
+    ) /* .toThrowError("Invalid") */
   })
 
   it("encodingToBuffer", () => {
@@ -36,8 +38,8 @@ describe("StorageService", () => {
     )
     assert.ok(got)
 
-    assert.throws(() =>
-      StorageService.encodingToBuffer("invalid encoding"),
-    ) /* .toThrowError("Invalid") */
+    assert.throws(() => StorageService.encodingToBuffer("invalid encoding"), {
+      message: /Invalid/,
+    })
   })
 })

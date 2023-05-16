@@ -1,9 +1,9 @@
 /** @typedef {"SUN" | "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT"} Day */
 
 export const Dates = {
-  /** 
+  /**
    * check if the provided string is a valid date
-   * 
+   *
    * @param {string} date
    * @returns {boolean}
    */
@@ -12,9 +12,9 @@ export const Dates = {
     return isNaN(parsed) == false
   },
 
-  /** 
+  /**
    * provided a date as string, calculate the previous day's date
-   * 
+   *
    * @param {string} dateString
    * @returns {Date}
    */
@@ -27,21 +27,29 @@ export const Dates = {
     return previous
   },
 
-  /** 
+  /**
    * get day name for specific date
-   * 
+   *
    * @param {string} date
    * @returns {Day}
    */
   getDateDay(date) {
-    const days = /** @type {const} */ (["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"])
+    const days = /** @type {const} */ ([
+      "SUN",
+      "MON",
+      "TUE",
+      "WED",
+      "THU",
+      "FRI",
+      "SAT",
+    ])
     const d = new Date(date)
     return days[d.getDay()]
   },
 
-  /** 
+  /**
    * provided array of objects, group by field "date" (of type Date)
-   * 
+   *
    * @param {{ date: Date }[]} data
    * @returns {Record<string, unknown[]>}
    */

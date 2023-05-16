@@ -61,6 +61,6 @@ describe("Dates", () => {
     }
 
     const got = Dates.groupByDate(input)
-    assert.strictEqual(got, expected)
+    assert.deepStrictEqual(got, expected)
   })
 })

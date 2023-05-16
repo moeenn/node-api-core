@@ -4,18 +4,17 @@ import { routes } from "#src/app/routes/index.mjs"
 
 describe("route definitins", () => {
   it("route method and url duplication test", () => {
-
     /** @type {string[]} */
     const routeKeys = routes.map((r) => r.method + " " + r.url)
     const duplicates = findDuplicates(routeKeys)
 
-    assert.strictEqual(duplicates, [])
+    assert.deepStrictEqual(duplicates, [])
   })
 })
 
 /**
- * 
- * @param {string[]} items 
+ *
+ * @param {string[]} items
  * @returns {string[]}
  */
 function findDuplicates(items) {

@@ -3,7 +3,10 @@
 /* eslint-disable-next-line no-unused-vars */
 import jsonSchema from "json-schema-to-ts"
 import { authConfig } from "#src/app/config/authConfig.mjs"
-import { AuthException, BadRequestException } from "#src/core/exceptions/index.mjs"
+import {
+  AuthException,
+  BadRequestException,
+} from "#src/core/exceptions/index.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 import { db } from "#src/core/database/index.mjs"
 import { logger } from "#src/core/server/logger/index.mjs"

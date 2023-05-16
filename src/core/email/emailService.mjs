@@ -35,9 +35,9 @@ export class EmailService extends TestableEmailService {
   }
 
   /**
-   * 
-   * @param {string} to 
-   * @param {Email} email 
+   *
+   * @param {string} to
+   * @param {Email} email
    */
   sendEmail(to, email) {
     if (isTest()) {

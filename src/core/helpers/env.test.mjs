@@ -10,6 +10,6 @@ describe("env helper", () => {
 
   it("get env value which hasn't been set", () => {
     const call = () => env("SOME_RANDOM_UNKNOWN_VALUE")
-    assert.throws(call) /*.toThrowError("not set") */
+    assert.throws(call, { message: /not set/ })
   })
 })

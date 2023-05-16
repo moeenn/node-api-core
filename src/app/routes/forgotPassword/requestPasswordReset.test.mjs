@@ -37,7 +37,9 @@ describe("requestPasswordReset", () => {
       (e) => e.to == user.email,
     )
 
-    const emailArgs = /** @type {ForgotPasswordEmailArgs} */ (isEmailSent?.email.args)
+    const emailArgs = /** @type {ForgotPasswordEmailArgs} */ (
+      isEmailSent?.email.args
+    )
     assert.ok(emailArgs.resetToken)
 
     const isTokenValid = await AuthService.validatePasswordResetToken(

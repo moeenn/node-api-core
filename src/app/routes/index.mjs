@@ -14,7 +14,7 @@ import { updateUserProfile } from "./user/updateUserProfile.mjs"
 
 /**
  * register all routes here
- * 
+ *
  * @type {RouteOptions[]}
  */
 export const routes = [

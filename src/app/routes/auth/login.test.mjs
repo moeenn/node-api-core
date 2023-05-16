@@ -1,10 +1,12 @@
-/* eslint-disable-next-line no-unused-vars */
-import * as t from "#src/index.d.mjs"
+/**
+ * @typedef {import("@prisma/client").User} User
+ * @typedef {import("@prisma/client").Password} Password
+ */
 
 import { describe, it } from "node:test"
-import assert  from "node:assert" 
+import assert from "node:assert"
 import { db } from "#src/core/database/index.mjs"
-import { Password } from "#src/core/helpers/password.mjs"
+import { Password as Pwd } from "#src/core/helpers/password.mjs"
 import { Server } from "#src/core/server/index.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 
@@ -23,7 +25,7 @@ describe("login", () => {
         staffId: "AB100",
         password: {
           create: {
-            hash: await Password.hash(password),
+            hash: await Pwd.hash(password),
           },
         },
       },
@@ -42,14 +44,14 @@ describe("login", () => {
     assert.equal(res.statusCode, 200)
     const body = /**
       @type {{
-      user: t.User
-      password: t.Password
+      user: User
+      password: Password
       token: string
     }}
     */ (JSON.parse(res.body))
 
     assert.ok(body.user)
-    assert.ok(!!body.password)
+    assert.equal(body.password, undefined)
     assert.ok(body.token)
 
     const result = await AuthService.validateLoginAuthToken(body.token)

@@ -2,7 +2,7 @@
 import { serverConfig } from "#src/app/config/serverConfig.mjs"
 
 function rateLimitExceedHandler() {
-  /** 
+  /**
    * @param {FastifyRequest} _req
    * @param {{ after: string; max: number; ttl: number }} context
    */

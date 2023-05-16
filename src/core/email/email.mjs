@@ -2,7 +2,6 @@ import { marked } from "marked"
 import { appConfig } from "#src/app/config/appConfig.mjs"
 
 export class Email {
-
   /** @type {typeof appConfig} */
   appConfig = appConfig
 
@@ -20,14 +19,16 @@ export class Email {
   }
 
   /**
-   * Over-ride in derive classes 
-   * 
+   * Over-ride in derive classes
+   *
    * @returns {string}
-  */
-  template() { return "" }
+   */
+  template() {
+    return ""
+  }
 
   /**
-   * 
+   *
    * @returns {string}
    */
   html() {

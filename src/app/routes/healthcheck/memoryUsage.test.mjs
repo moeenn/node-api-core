@@ -1,4 +1,4 @@
-import { describe, it} from "node:test"
+import { describe, it } from "node:test"
 import assert from "node:assert/strict"
 import { Server } from "#src/core/server/index.mjs"
 import { db } from "#src/core/database/index.mjs"

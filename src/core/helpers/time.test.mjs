@@ -17,7 +17,7 @@ describe("Time", () => {
 
     for (const testCase of testCases) {
       const got = Time.parseString(testCase.input)
-      assert.strictEqual(got, testCase.expected)
+      assert.deepStrictEqual(got, testCase.expected)
     }
   })
 
@@ -67,7 +67,7 @@ describe("Time", () => {
         testCase.input.durationMinutes,
       )
 
-      assert.strictEqual(got, testCase.expected)
+      assert.deepStrictEqual(got, testCase.expected)
     }
   })
 
@@ -106,7 +106,7 @@ describe("Time", () => {
         testCase.input.durationMinutes,
       )
 
-      assert.strictEqual(got, testCase.expected)
+      assert.deepStrictEqual(got, testCase.expected)
     }
   })
 
@@ -145,7 +145,7 @@ describe("Time", () => {
 
     for (const testCase of testCases) {
       const got = Time.timeDelta(testCase.input.start, testCase.input.end)
-      assert.strictEqual(got, testCase.expected)
+      assert.deepStrictEqual(got, testCase.expected)
     }
   })
 
@@ -167,7 +167,7 @@ describe("Time", () => {
 
     for (const testCase of testCases) {
       const got = Time.timeToMidnight(testCase.input)
-      assert.strictEqual(got, testCase.expected)
+      assert.deepStrictEqual(got, testCase.expected)
     }
   })
 

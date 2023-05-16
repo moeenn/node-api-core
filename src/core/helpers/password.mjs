@@ -6,7 +6,7 @@ import owasp from "owasp-password-strength-test"
 export const Password = {
   /**
    * hash & salt a cleartext password string
-   * 
+   *
    * @param {string} password
    * @returns {Promise<string>}
    */
