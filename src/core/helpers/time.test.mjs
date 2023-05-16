@@ -1,5 +1,6 @@
-import { describe, it, expect } from "vitest"
-import { Time } from "./Time"
+import { describe, it } from "node:test"
+import assert from "node:assert/strict"
+import { Time } from "./time.mjs"
 
 describe("Time", () => {
   it("parseString", () => {
@@ -16,7 +17,7 @@ describe("Time", () => {
 
     for (const testCase of testCases) {
       const got = Time.parseString(testCase.input)
-      expect(got).toStrictEqual(testCase.expected)
+      assert.strictEqual(got, testCase.expected)
     }
   })
 
@@ -28,7 +29,7 @@ describe("Time", () => {
 
     for (const testCase of testCases) {
       const got = testCase.input.toString()
-      expect(got).toBe(testCase.output)
+      assert.equal(got, testCase.output)
     }
   })
 
@@ -66,7 +67,7 @@ describe("Time", () => {
         testCase.input.durationMinutes,
       )
 
-      expect(got).toStrictEqual(testCase.expected)
+      assert.strictEqual(got, testCase.expected)
     }
   })
 
@@ -105,7 +106,7 @@ describe("Time", () => {
         testCase.input.durationMinutes,
       )
 
-      expect(got).toStrictEqual(testCase.expected)
+      assert.strictEqual(got, testCase.expected)
     }
   })
 
@@ -114,7 +115,7 @@ describe("Time", () => {
     const expected = 150
     const got = input.toMins()
 
-    expect(got).toBe(expected)
+    assert.equal(got, expected)
   })
 
   it("timeDelta", () => {
@@ -144,7 +145,7 @@ describe("Time", () => {
 
     for (const testCase of testCases) {
       const got = Time.timeDelta(testCase.input.start, testCase.input.end)
-      expect(got).toStrictEqual(testCase.expected)
+      assert.strictEqual(got, testCase.expected)
     }
   })
 
@@ -166,7 +167,7 @@ describe("Time", () => {
 
     for (const testCase of testCases) {
       const got = Time.timeToMidnight(testCase.input)
-      expect(got).toStrictEqual(testCase.expected)
+      assert.strictEqual(got, testCase.expected)
     }
   })
 
@@ -213,7 +214,7 @@ describe("Time", () => {
         testCase.input.current,
       )
 
-      expect(got).toBe(testCase.expected)
+      assert.equal(got, testCase.expected)
     }
   })
 })

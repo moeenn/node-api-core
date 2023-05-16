@@ -1,5 +1,6 @@
-import { describe, it, expect, afterAll } from "vitest"
-import { Server } from "#src/core/server"
+import { describe, it } from "node:test"
+import assert from "node:assert/strict"
+import { Server } from "#src/core/server/index.mjs"
 import { db } from "#src/core/database/index.mjs"
 import { UserRole } from "@prisma/client"
 import { AuthService } from "#src/core/services/authService/index.mjs"
@@ -8,8 +9,6 @@ describe("getUserProfile", () => {
   const server = Server.new()
   const url = "/api/user/profile"
   const method = "GET"
-
-  afterAll(() => server.close())
 
   it("valid request", async () => {
     /** setup */
@@ -35,11 +34,11 @@ describe("getUserProfile", () => {
       },
     })
 
-    expect(res.statusCode).toBe(200)
-
+    assert.equal(res.statusCode, 200)
     const body = JSON.parse(res.body)
-    expect(body.email).toBe(user.email)
-    expect(body.role).toBe(user.role)
+
+    assert.equal(body.email, user.email)
+    assert.equal(body.role, user.role)
 
     /** cleanup */
     await db.user.delete({ where: { id: user.id } })
@@ -60,7 +59,7 @@ describe("getUserProfile", () => {
         authorization: "Bearer " + authToken,
       },
     })
-    expect(res.statusCode).toBe(401)
+    assert.equal(res.statusCode, 401)
   })
 
   it("invalid token", async () => {
@@ -71,6 +70,6 @@ describe("getUserProfile", () => {
         authorization: "Bearer some_random_token",
       },
     })
-    expect(res.statusCode).toBe(403)
+    assert.equal(res.statusCode, 403)
   })
 })

@@ -1,12 +1,11 @@
-import { describe, it, expect, afterAll } from "vitest"
-import { Server } from "#src/core/server"
+import { describe, it } from "node:test"
+import assert from "node:assert/strict"
+import { Server } from "#src/core/server/index.mjs"
 
 describe("passwordStrengthCheck", async () => {
   const server = Server.new()
   const url = "/api/password-strength"
   const method = "POST"
-
-  afterAll(() => server.close())
 
   it("strong password", async () => {
     const payload = {
@@ -19,10 +18,13 @@ describe("passwordStrengthCheck", async () => {
       payload,
     })
 
-    expect(res.statusCode).toBe(200)
-    const body = JSON.parse(res.body) as { strong: boolean; errors: string[] }
-    expect(body.strong).toBe(true)
-    expect(body.errors.length).toBe(0)
+    assert.equal(res.statusCode, 200)
+    const body = /**
+      @type {{ strong: boolean; errors: string[] }}
+    */ (JSON.parse(res.body))
+
+    assert.ok(body.strong)
+    assert.equal(body.errors.length, 0)
   })
 
   it("weak (short) password", async () => {
@@ -36,10 +38,13 @@ describe("passwordStrengthCheck", async () => {
       payload,
     })
 
-    expect(res.statusCode).toBe(200)
-    const body = JSON.parse(res.body) as { strong: boolean; errors: string[] }
-    expect(body.strong).toBe(false)
-    expect(body.errors.length).toBe(1)
+    assert.equal(res.statusCode, 200)
+    const body = /**
+      @type {{ strong: boolean; errors: string[] }}
+    */ (JSON.parse(res.body))
+
+    assert.equal(body.strong, false)
+    assert.equal(body.errors.length, 1)
   })
 
   it("weak (repeating) password", async () => {
@@ -53,8 +58,11 @@ describe("passwordStrengthCheck", async () => {
       payload,
     })
 
-    expect(res.statusCode).toBe(200)
-    const body = JSON.parse(res.body) as { strong: boolean; errors: string[] }
-    expect(body.strong).toBe(false)
+    assert.equal(res.statusCode, 200)
+    const body = /** 
+      @type {{ strong: boolean; errors: string[] 
+    }} */ (JSON.parse(res.body))
+
+    assert.equal(body.strong, false)
   })
 })

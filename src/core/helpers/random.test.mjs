@@ -1,12 +1,13 @@
-import { describe, it, expect } from "vitest"
-import { Random } from "./Random"
+import { describe, it } from "node:test"
+import assert from "node:assert/strict"
+import { Random } from "./random.mjs"
 
 describe("Random helper", () => {
   it("random strings", async () => {
     const one = await Random.string(10)
     const two = await Random.string(10)
 
-    expect(one === two).toBe(false)
+    assert.equal(one === two, false)
   })
 
   it("random int", async () => {
@@ -14,11 +15,11 @@ describe("Random helper", () => {
     const max = 30
 
     const result = await Random.int(min, max)
-    expect(result >= min && result <= max).toBe(true)
+    assert.ok(result >= min && result <= max)
   })
 
   it("random pin", async () => {
     const pin = await Random.pin(10)
-    expect(pin.length).toBe(10)
+    assert.equal(pin.length, 10)
   })
 })

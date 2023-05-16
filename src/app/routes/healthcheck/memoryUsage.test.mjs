@@ -1,5 +1,6 @@
-import { describe, it, expect, afterAll } from "vitest"
-import { Server } from "#src/core/server"
+import { describe, it} from "node:test"
+import assert from "node:assert/strict"
+import { Server } from "#src/core/server/index.mjs"
 import { db } from "#src/core/database/index.mjs"
 import { UserRole } from "@prisma/client"
 import { AuthService } from "#src/core/services/authService/index.mjs"
@@ -8,8 +9,6 @@ describe("memoryUsage", () => {
   const server = Server.new()
   const url = "/api/health-check/memory"
   const method = "GET"
-
-  afterAll(() => server.close())
 
   it("admin auth token is required", async () => {
     /** setup */
@@ -34,7 +33,8 @@ describe("memoryUsage", () => {
         authorization: "Bearer " + authToken,
       },
     })
-    expect(res.statusCode).toBe(401)
+
+    assert.equal(res.statusCode, 401)
 
     /** cleanup */
     await db.user.delete({ where: { id: user.id } })

@@ -1,17 +1,16 @@
-import { describe, it, expect, afterAll } from "vitest"
-import { Server } from "#src/core/server"
+import { describe, it } from "node:test"
+import assert from "node:assert/strict"
+import { Server } from "#src/core/server/index.mjs"
 import { db } from "#src/core/database/index.mjs"
 import { UserRole } from "@prisma/client"
-import { EmailService } from "#src/core/email"
-import { ForgotPasswordEmailArgs } from "#src/app/emails"
+import { EmailService } from "#src/core/email/index.mjs"
+import { ForgotPasswordEmailArgs } from "#src/app/emails/forgotPasswordEmail.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 
 describe("requestPasswordReset", () => {
   const server = Server.new()
   const url = "/api/forgot-password/request-reset"
   const method = "POST"
-
-  afterAll(() => server.close())
 
   it("valid request", async () => {
     /** setup */
@@ -32,19 +31,20 @@ describe("requestPasswordReset", () => {
         email: user.email,
       },
     })
-    expect(res.statusCode).toBe(200)
+    assert.equal(res.statusCode, 200)
 
     const isEmailSent = EmailService.instance().sentEmails.find(
       (e) => e.to == user.email,
     )
 
-    const emailArgs = isEmailSent?.email.args as ForgotPasswordEmailArgs
-    expect(emailArgs.resetToken).toBeTruthy()
+    const emailArgs = /** @type {ForgotPasswordEmailArgs} */ (isEmailSent?.email.args)
+    assert.ok(emailArgs.resetToken)
 
     const isTokenValid = await AuthService.validatePasswordResetToken(
       emailArgs.resetToken,
     )
-    expect(isTokenValid !== "").toBe(true)
+
+    assert.ok(isTokenValid !== "")
 
     /** cleanup */
     await db.user.delete({ where: { id: user.id } })
@@ -61,11 +61,12 @@ describe("requestPasswordReset", () => {
         email,
       },
     })
-    expect(res.statusCode).toBe(200)
+    assert.equal(res.statusCode, 200)
 
     const isEmailSent = EmailService.instance().sentEmails.find(
       (e) => e.to == email,
     )
-    expect(isEmailSent).toBeFalsy()
+
+    assert.equal(isEmailSent, undefined)
   })
 })

@@ -1,16 +1,15 @@
-import { describe, it, expect, afterAll } from "vitest"
-import { Server } from "#src/core/server"
+import { describe, it } from "node:test"
+import assert from "node:assert/strict"
+import { Server } from "#src/core/server/index.mjs"
 import { db } from "#src/core/database/index.mjs"
 import { UserRole } from "@prisma/client"
 import { AuthService } from "#src/core/services/authService/index.mjs"
-import { Password } from "#src/core/helpers"
+import { Password } from "#src/core/helpers/password.mjs"
 
 describe("resetForgottenPassword", () => {
   const server = Server.new()
   const url = "/api/forgot-password/reset-password"
   const method = "POST"
-
-  afterAll(() => server.close())
 
   it("valid request", async () => {
     /** setup */
@@ -40,7 +39,7 @@ describe("resetForgottenPassword", () => {
         confirmPassword: newPassword,
       },
     })
-    expect(res.statusCode).toBe(200)
+    assert.equal(res.statusCode, 200)
 
     const updatedUser = await db.user.findUnique({
       where: { id: user.id },
@@ -51,7 +50,7 @@ describe("resetForgottenPassword", () => {
       updatedUser?.password?.hash ?? "",
       newPassword,
     )
-    expect(isHashValid)
+    assert.ok(isHashValid)
 
     /** cleanup */
     await db.user.delete({ where: { id: user.id } })

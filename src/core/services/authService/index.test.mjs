@@ -1,5 +1,5 @@
 import { UserRole } from "@prisma/client"
-import { describe, it, expect } from "vitest"
+import { describe, it, expect } from "node:test"
 import { AuthService } from "./index"
 
 describe("AuthService", () => {

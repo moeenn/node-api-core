@@ -1,8 +1,9 @@
-import { describe, it, expect, afterAll } from "vitest"
-import { Server } from "#src/core/server"
+import { describe, it, after } from "node:test"
+import assert from "node:assert/strict"
+import { Server } from "#src/core/server/index.mjs"
 import { db } from "#src/core/database/index.mjs"
 import { UserRole } from "@prisma/client"
-import { Password } from "#src/core/helpers"
+import { Password } from "#src/core/helpers/password.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 
 describe("updatePassword", () => {
@@ -10,7 +11,7 @@ describe("updatePassword", () => {
   const url = "/api/user/update-password"
   const method = "POST"
 
-  afterAll(() => server.close())
+  after(() => server.close())
 
   it("valid request", async () => {
     /** setup */
@@ -45,7 +46,7 @@ describe("updatePassword", () => {
         confirmPassword: updatedPassword,
       },
     })
-    expect(res.statusCode).toBe(200)
+    assert.equal(res.statusCode, 200)
 
     const updatedUser = await db.user.findUnique({
       where: { id: user.id },
@@ -56,7 +57,7 @@ describe("updatePassword", () => {
       updatedUser?.password?.hash ?? "",
       updatedPassword,
     )
-    expect(isHashValid).toBe(true)
+    assert.ok(isHashValid)
 
     /** cleanup */
     await db.user.delete({ where: { id: user.id } })

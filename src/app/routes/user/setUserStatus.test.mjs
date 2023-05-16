@@ -1,5 +1,6 @@
-import { describe, it, expect, afterAll } from "vitest"
-import { Server } from "#src/core/server"
+import { describe, it, after } from "node:test"
+import assert from "node:assert/strict"
+import { Server } from "#src/core/server/index.mjs"
 import { db } from "#src/core/database/index.mjs"
 import { UserRole } from "@prisma/client"
 import { AuthService } from "#src/core/services/authService/index.mjs"
@@ -17,12 +18,13 @@ describe("setUserStatus", async () => {
       role: UserRole.ADMIN,
     },
   })
+
   const adminAuthToken = await AuthService.generateLoginAuthToken(
     admin.id,
     admin.role,
   )
 
-  afterAll(async () => {
+  after(async () => {
     await db.user.delete({ where: { id: admin.id } })
     server.close()
   })
@@ -50,15 +52,16 @@ describe("setUserStatus", async () => {
         status: false,
       },
     })
-    expect(res.statusCode).toBe(200)
+    assert.equal(res.statusCode, 200)
 
     const foundUser = await db.user.findUnique({
       where: {
         id: user.id,
       },
     })
-    expect(foundUser).toBeTruthy()
-    expect(foundUser?.approved).toBe(false)
+
+    assert.ok(foundUser)
+    assert.equal(foundUser?.approved, false)
 
     /** cleanup */
     await db.user.delete({ where: { id: user.id } })

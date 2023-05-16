@@ -1,5 +1,6 @@
-import { describe, it, expect, afterAll } from "vitest"
-import { Server } from "#src/core/server"
+import { describe, it, after } from "node:test"
+import assert from "node:assert/strict"
+import { Server } from "#src/core/server/index.mjs"
 import { db } from "#src/core/database/index.mjs"
 import { UserRole } from "@prisma/client"
 import { AuthService } from "#src/core/services/authService/index.mjs"
@@ -9,7 +10,7 @@ describe("updateUserProfile", () => {
   const url = "/api/user/profile"
   const method = "PUT"
 
-  afterAll(() => server.close())
+  after(() => server.close())
 
   it("valid request", async () => {
     /** setup */
@@ -38,12 +39,12 @@ describe("updateUserProfile", () => {
         name: updatedName,
       },
     })
-    expect(res.statusCode).toBe(200)
+    assert.equal(res.statusCode, 200)
 
     const updatedUser = await db.user.findUnique({
       where: { id: user.id },
     })
-    expect(updatedUser?.name).toBe(updatedName)
+    assert.equal(updatedUser?.name, updatedName)
 
     /** cleanup */
     await db.user.delete({ where: { id: user.id } })

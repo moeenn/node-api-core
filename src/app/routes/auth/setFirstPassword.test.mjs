@@ -1,16 +1,15 @@
-import { describe, it, expect, afterAll } from "vitest"
-import { Server } from "#src/core/server"
+import { describe, it } from "node:test"
+import assert from "node:assert/strict"
+import { Server } from "#src/core/server/index.mjs"
 import { db } from "#src/core/database/index.mjs"
 import { UserRole } from "@prisma/client"
 import { AuthService } from "#src/core/services/authService/index.mjs"
-import { Password } from "#src/core/helpers"
+import { Password } from "#src/core/helpers/password.mjs"
 
 describe("setFirstPassword", () => {
   const server = Server.new()
   const url = "/api/user/configure"
   const method = "POST"
-
-  afterAll(() => server.close())
 
   it("valid configure request", async () => {
     /** setup */
@@ -38,20 +37,20 @@ describe("setFirstPassword", () => {
         confirmPassword: password,
       },
     })
-    expect(res.statusCode).toBe(200)
+    assert.equal(res.statusCode, 200)
 
     const updatedUser = await db.user.findUnique({
       where: { id: user.id },
       include: { password: true },
     })
-    expect(updatedUser?.password).toBeTruthy()
+    assert.ok(updatedUser?.password)
 
     const isHashCorrect = await Password.verify(
       updatedUser?.password?.hash ?? "",
       password,
     )
 
-    expect(isHashCorrect).toBe(true)
+    assert.ok(isHashCorrect)
 
     /** cleanup */
     await db.user.delete({ where: { id: user.id } })
@@ -89,10 +88,10 @@ describe("setFirstPassword", () => {
         confirmPassword: updatedPassword,
       },
     })
-    expect(res.statusCode).toBe(400)
+    assert.equal(res.statusCode, 400)
 
     const body = JSON.parse(res.body)
-    expect(body.message.includes("already configured")).toBe(true)
+    assert.ok(body.message.includes("already configured"))
 
     /** cleanup */
     await db.user.delete({ where: { id: user.id } })

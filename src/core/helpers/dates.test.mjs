@@ -1,5 +1,6 @@
-import { describe, it, expect } from "vitest"
-import { Dates } from "./Dates"
+import { describe, it } from "node:test"
+import assert from "node:assert/strict"
+import { Dates } from "./dates.mjs"
 
 describe("Dates", () => {
   it("isDateValid", () => {
@@ -12,7 +13,7 @@ describe("Dates", () => {
 
     for (const testCase of testCases) {
       const got = Dates.isDateValid(testCase.input)
-      expect(got).toBe(testCase.expected)
+      assert.equal(got, testCase.expected)
     }
   })
 
@@ -25,7 +26,7 @@ describe("Dates", () => {
 
     for (const testCase of testCases) {
       const got = Dates.previousDay(testCase.input)
-      expect(got.getTime()).toBe(testCase.expected.getTime())
+      assert.equal(got.getTime(), testCase.expected.getTime())
     }
   })
 
@@ -38,7 +39,7 @@ describe("Dates", () => {
 
     for (const testCase of testCases) {
       const got = Dates.getDateDay(testCase.input)
-      expect(got).toBe(testCase.expected)
+      assert.equal(got, testCase.expected)
     }
   })
 
@@ -60,6 +61,6 @@ describe("Dates", () => {
     }
 
     const got = Dates.groupByDate(input)
-    expect(got).toStrictEqual(expected)
+    assert.strictEqual(got, expected)
   })
 })

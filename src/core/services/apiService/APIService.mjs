@@ -1,49 +1,69 @@
+// TODO: replace with native node fetch
 import axios, { Axios } from "axios"
 import Ajv from "ajv"
 import { logger } from "#src/core/server/logger/index.mjs"
-import { IAPIService } from "./IAPIService"
 
 /**
  * any time we need to integrate an enternal JSON REST API in our backend, we
  * will use this class as a dependency for making API requests
  */
-export class APIService implements IAPIService {
-  private axiosInstance: Axios
-  private vInstance: Ajv
-  private baseURL: string
-  private timeout: number
+export class APIService {
+  /** @type {Axios} */
+  _axiosInstance
 
-  constructor(baseURL: string, timeoutSeconds = 5) {
-    this.baseURL = baseURL
-    this.timeout = timeoutSeconds
+  /** @type {Ajv} */
+  _vInstance
 
-    this.axiosInstance = axios.create({ timeout: this.timeout * 1000 })
-    this.vInstance = new Ajv()
+  /** @type {string} */
+  _baseURL
+
+  /**
+   * 
+   * @param {string} baseURL 
+   * @param {number} [timeoutSeconds] 
+   */
+  constructor(baseURL, timeoutSeconds = 5) {
+    this._baseURL = baseURL
+
+    this._axiosInstance = axios.create({ timeout: timeoutSeconds * 1000 })
+    this._vInstance = new Ajv()
   }
 
-  validate<T>(schema: Record<string, unknown>, data: unknown): Error | T {
+  /**
+   * @template T
+   * @param {Record<string, unknown>} schema 
+   * @param {unknown} data 
+   * @returns {Error | T}
+   */
+  validate(schema, data) {
     if (data instanceof Error) {
       return data
     }
 
-    const isValid = this.vInstance.validate(schema, data)
+    const isValid = this._vInstance.validate(schema, data)
     if (!isValid) {
       const message = "unknown data-structure returned from external API"
       logger.error({ data }, message)
       return new Error(message)
     }
 
-    return data as T
+    return /** @type {T} */ (data)
   }
 
+  /**
+   * 
+   * @param {string} url 
+   * @param {string | undefined} [bearerToken] 
+   * @returns {Promise<Record<string, unknown> | Error>}
+   */
   async get(
-    url: string,
-    bearerToken: string | undefined = undefined,
-  ): Promise<Record<string, unknown> | Error> {
-    const targetURL = this.baseURL + url
+    url,
+    bearerToken = undefined,
+  ) {
+    const targetURL = this._baseURL + url
 
     try {
-      const res = await this.axiosInstance.get(targetURL, {
+      const res = await this._axiosInstance.get(targetURL, {
         headers: {
           Authorization: "Bearer " + bearerToken,
         },
@@ -59,15 +79,22 @@ export class APIService implements IAPIService {
     }
   }
 
+  /**
+   * 
+   * @param {string} url 
+   * @param {unknown} payload 
+   * @param {string | undefined} [bearerToken] 
+   * @returns {Promise<Record<string, unknown> | Error>}
+   */
   async post(
-    url: string,
-    payload: unknown,
-    bearerToken: string | undefined = undefined,
-  ): Promise<Record<string, unknown> | Error> {
-    const targetURL = this.baseURL + url
+    url,
+    payload,
+    bearerToken = undefined,
+  ) {
+    const targetURL = this._baseURL + url
 
     try {
-      const res = await this.axiosInstance.post(targetURL, payload, {
+      const res = await this._axiosInstance.post(targetURL, payload, {
         headers: {
           Authorization: "Bearer " + bearerToken,
         },
@@ -83,15 +110,22 @@ export class APIService implements IAPIService {
     }
   }
 
+  /**
+   * 
+   * @param {string} url 
+   * @param {unknown} payload 
+   * @param {string | undefined} bearerToken 
+   * @returns {Promise<Record<string, unknown> | Error>}
+   */
   async put(
-    url: string,
-    payload: unknown,
-    bearerToken: string | undefined = undefined,
-  ): Promise<Record<string, unknown> | Error> {
-    const targetURL = this.baseURL + url
+    url,
+    payload,
+    bearerToken = undefined,
+  ) {
+    const targetURL = this._baseURL + url
 
     try {
-      const res = await this.axiosInstance.put(targetURL, payload, {
+      const res = await this._axiosInstance.put(targetURL, payload, {
         headers: {
           Authorization: "Bearer " + bearerToken,
         },
@@ -107,14 +141,20 @@ export class APIService implements IAPIService {
     }
   }
 
+  /**
+   * 
+   * @param {string} url 
+   * @param {string | undefined} bearerToken 
+   * @returns {Promise<Record<string, unknown> | Error> }
+   */
   async delete(
-    url: string,
-    bearerToken: string | undefined = undefined,
-  ): Promise<Record<string, unknown> | Error> {
-    const targetURL = this.baseURL + url
+    url,
+    bearerToken = undefined,
+  ) {
+    const targetURL = this._baseURL + url
 
     try {
-      const res = await this.axiosInstance.delete(targetURL, {
+      const res = await this._axiosInstance.delete(targetURL, {
         headers: {
           Authorization: "Bearer " + bearerToken,
         },

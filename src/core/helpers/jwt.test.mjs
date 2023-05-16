@@ -1,5 +1,6 @@
-import { describe, it, expect } from "vitest"
-import { JWT } from "./JWT"
+import { describe, it } from "node:test"
+import assert from "node:assert/strict"
+import { JWT } from "./jwt.mjs"
 
 describe("JWT", () => {
   it("validate JWT", async () => {
@@ -9,10 +10,10 @@ describe("JWT", () => {
     }
 
     const token = await JWT.generate(secret, payload)
-    expect(typeof token).toBe("string")
+    assert.equal(typeof token, "string")
 
-    const result = (await JWT.validate(secret, token)) as { id: number }
-    expect(result.id).toBe(payload.id)
+    const result = /** @type {{ id: number }} */ (await JWT.validate(secret, token))
+    assert.equal(result.id, payload.id)
   })
 
   it("invalid token", async () => {
@@ -22,7 +23,7 @@ describe("JWT", () => {
     }
 
     const token = await JWT.generate(secret, payload)
-    const result = (await JWT.validate(secret + "111", token)) as { id: number }
-    expect(result).toBeFalsy()
+    const result = /** @type {{ id: number }} */ (await JWT.validate(secret + "111", token))
+    assert.equal(result, undefined)
   })
 })

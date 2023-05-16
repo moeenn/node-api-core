@@ -1,16 +1,15 @@
+import { describe, it } from "node:test"
+import assert  from "node:assert" 
 import { db } from "#src/core/database/index.mjs"
-import { Password } from "#src/core/helpers"
+import { Password } from "#src/core/helpers/password.mjs"
 import { Password as Pwd, User } from "@prisma/client"
-import { describe, it, expect, afterAll } from "vitest"
-import { Server } from "#src/core/server"
+import { Server } from "#src/core/server/index.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 
 describe("login", () => {
   const server = Server.new()
   const url = "/api/login"
   const method = "POST"
-
-  afterAll(() => server.close())
 
   it("valid credentials", async () => {
     /** setup */
@@ -38,20 +37,22 @@ describe("login", () => {
       },
     })
 
-    expect(res.statusCode).toBe(200)
-    const body = JSON.parse(res.body) as {
+    assert.equal(res.statusCode, 200)
+    const body = /**
+      @type {{
       user: User
       password: Pwd
       token: string
-    }
+    }}
+    */ (JSON.parse(res.body))
 
-    expect(body.user).toBeTruthy()
-    expect(body.password).toBeFalsy()
-    expect(body.token).toBeTruthy()
+    assert.ok(body.user)
+    assert.ok(!!body.password)
+    assert.ok(body.token)
 
     const result = await AuthService.validateLoginAuthToken(body.token)
-    expect(result.userId).toBe(user.id)
-    expect(result.userRole).toBe(user.role)
+    assert.equal(result.userId, user.id)
+    assert.equal(result.userRole, user.role)
 
     /** cleanup */
     await db.user.delete({ where: { id: user.id } })
@@ -67,6 +68,6 @@ describe("login", () => {
       },
     })
 
-    expect(res.statusCode).toBe(401)
+    assert.equal(res.statusCode, 401)
   })
 })
