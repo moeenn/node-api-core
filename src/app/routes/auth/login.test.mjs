@@ -9,6 +9,7 @@ import { db } from "#src/core/database/index.mjs"
 import { Password as Pwd } from "#src/core/helpers/password.mjs"
 import { Server } from "#src/core/server/index.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
+import { faker } from "@faker-js/faker"
 
 describe("login", () => {
   const server = Server.new()
@@ -20,9 +21,9 @@ describe("login", () => {
     const password = "123123123123"
     const user = await db.user.create({
       data: {
-        email: "user@site.com",
+        email: faker.internet.email(),
         name: "Mr. User",
-        staffId: "AB100",
+        staffId: faker.string.alphanumeric(),
         password: {
           create: {
             hash: await Pwd.hash(password),
@@ -67,8 +68,8 @@ describe("login", () => {
       url,
       method,
       payload: {
-        email: "non-existent-user@site.com",
-        password: "some-random-wrong-password",
+        email: faker.internet.email(),
+        password: faker.internet.password(),
       },
     })
 

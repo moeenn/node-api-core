@@ -5,6 +5,7 @@ import { db } from "#src/core/database/index.mjs"
 import { UserRole } from "@prisma/client"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 import { Password } from "#src/core/helpers/password.mjs"
+import { faker } from "@faker-js/faker"
 
 describe("resetForgottenPassword", () => {
   const server = Server.new()
@@ -15,13 +16,13 @@ describe("resetForgottenPassword", () => {
     /** setup */
     const user = await db.user.create({
       data: {
-        email: "user@site.com",
+        email: faker.internet.email(),
         name: "User",
-        staffId: "AB100",
+        staffId: faker.string.alphanumeric(),
         role: UserRole.USER,
         password: {
           create: {
-            hash: await Password.hash("some_random_password123123"),
+            hash: await Password.hash(faker.internet.password()),
           },
         },
       },
@@ -29,7 +30,7 @@ describe("resetForgottenPassword", () => {
     const resetToken = await AuthService.generatePasswordResetToken(user.id)
 
     /** test */
-    const newPassword = "!@#abc#$%vho^&*3A"
+    const newPassword = "$@#VEq%^&245"
     const res = await server.inject({
       url,
       method,

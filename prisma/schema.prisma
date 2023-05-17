@@ -23,7 +23,7 @@ model User {
   email     String         @unique
   name      String
   phone     String?
-  staffId   String
+  staffId   String         @unique
   password  Password?
   approved  Boolean        @default(true)
   role      UserRole       @default(USER)

@@ -6,6 +6,7 @@ import { db } from "#src/core/database/index.mjs"
 import { UserRole } from "@prisma/client"
 import { EmailService } from "#src/core/email/index.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
+import { faker } from "@faker-js/faker"
 
 describe("requestPasswordReset", () => {
   const server = Server.new()
@@ -16,9 +17,9 @@ describe("requestPasswordReset", () => {
     /** setup */
     const user = await db.user.create({
       data: {
-        email: "user@site.com",
+        email: faker.internet.email(),
         name: "User",
-        staffId: "AB100",
+        staffId: faker.string.alphanumeric(),
         role: UserRole.USER,
       },
     })
@@ -54,7 +55,7 @@ describe("requestPasswordReset", () => {
   })
 
   it("invalid email address", async () => {
-    const email = "some_random_nonexistent_email@site.com"
+    const email = faker.internet.email()
 
     const res = await server.inject({
       url,

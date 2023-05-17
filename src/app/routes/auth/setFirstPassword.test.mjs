@@ -5,6 +5,7 @@ import { db } from "#src/core/database/index.mjs"
 import { UserRole } from "@prisma/client"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 import { Password } from "#src/core/helpers/password.mjs"
+import { faker } from "@faker-js/faker"
 
 describe("setFirstPassword", () => {
   const server = Server.new()
@@ -15,9 +16,9 @@ describe("setFirstPassword", () => {
     /** setup */
     const user = await db.user.create({
       data: {
-        email: "user@site.com",
+        email: faker.internet.email(),
         name: "User",
-        staffId: "AB100",
+        staffId: faker.string.alphanumeric(),
         role: UserRole.USER,
       },
     })
@@ -27,7 +28,7 @@ describe("setFirstPassword", () => {
     )
 
     /** test */
-    const password = "some_random_13123_password"
+    const password = "!@#ABC$%^678s"
     const res = await server.inject({
       url,
       method,
@@ -58,12 +59,12 @@ describe("setFirstPassword", () => {
 
   it("account already configured", async () => {
     /** setup */
-    const password = "some_random_password-231313"
+    const password = faker.internet.password({ length: 10 })
     const user = await db.user.create({
       data: {
-        email: "user@site.com",
+        email: faker.internet.email(),
         name: "User",
-        staffId: "AB100",
+        staffId: faker.string.alphanumeric(),
         role: UserRole.USER,
         password: {
           create: {
@@ -78,7 +79,7 @@ describe("setFirstPassword", () => {
     )
 
     /** test */
-    const updatedPassword = "another_weak_password111"
+    const updatedPassword = "!@#ABC$%^678s"
     const res = await server.inject({
       url,
       method,

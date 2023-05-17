@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./src/index.mjs",
     "type-check": "tsc --project jsconfig.json",
-    "test": "NODE_ENV='test' dotenv -e .env -- node --test ./src/",
+    "test": "NODE_ENV='test' dotenv -e .env -- node --test",
     "lint": "npx eslint ./src/ --ext .mjs",
     "fmt": "npx prettier --write 'src/**/*.mjs'",
     "check": "npm run type-check && npm run lint",
@@ -52,6 +52,7 @@
     }
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.0.1",
     "@types/events": "^3.0.0",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/marked": "^4.3.0",

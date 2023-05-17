@@ -18,8 +18,8 @@ let db
 if (process.env.NODE_ENV === "production") {
   db = new PrismaClient()
 } else {
-  if (!/** @type {any} */ (global).databaseInstance) {
-    (/** @type {any} */ (global)).databaseInstance = new PrismaClient()
+  if (!(/** @type {any} */ (global).databaseInstance)) {
+    ;/** @type {any} */ (global).databaseInstance = new PrismaClient()
   }
   db = /** @type {any} */ (global).databaseInstance
 }

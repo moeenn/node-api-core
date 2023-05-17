@@ -5,6 +5,7 @@ import { db } from "#src/core/database/index.mjs"
 import { UserRole } from "@prisma/client"
 import { Password } from "#src/core/helpers/password.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
+import { faker } from "@faker-js/faker"
 
 describe("updatePassword", () => {
   const server = Server.new()
@@ -17,13 +18,13 @@ describe("updatePassword", () => {
     /** setup */
     const user = await db.user.create({
       data: {
-        email: "user@site.com",
+        email: faker.internet.email(),
         name: "User",
-        staffId: "AB100",
+        staffId: faker.lorem.slug(),
         role: UserRole.USER,
         password: {
           create: {
-            hash: await Password.hash("some_random-password"),
+            hash: await Password.hash(faker.internet.password()),
           },
         },
       },
@@ -34,7 +35,7 @@ describe("updatePassword", () => {
     )
 
     /** test */
-    const updatedPassword = "another-new-password-123123"
+    const updatedPassword = "!@#Abc#$%_234"
     const res = await server.inject({
       url,
       method,
