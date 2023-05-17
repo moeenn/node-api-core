@@ -10,56 +10,55 @@ describe("setUserStatus", async () => {
   const url = "/api/user/set-status"
   const method = "POST"
 
-  // const admin = await db.user.create({
-  //   data: {
-  //     email: "admin@site.com",
-  //     name: "Admin",
-  //     staffId: "AB100",
-  //     role: UserRole.ADMIN,
-  //   },
-  // })
-
-  // const adminAuthToken = await AuthService.generateLoginAuthToken(
-  //   admin.id,
-  //   admin.role,
-  // )
-
-  after(async () => {
-    // await db.user.delete({ where: { id: admin.id } })
-    server.close()
-  })
+  after(() => server.close())
 
   it("valid request", async () => {
-    //   /** setup */
-    //   const user = await db.user.create({
-    //     data: {
-    //       email: "user@site.com",
-    //       name: "User",
-    //       staffId: "AB100",
-    //       role: UserRole.USER,
-    //     },
-    //   })
-    //   /** test */
-    //   const res = await server.inject({
-    //     url,
-    //     method,
-    //     headers: {
-    //       authorization: "Bearer " + adminAuthToken,
-    //     },
-    //     payload: {
-    //       userId: user.id,
-    //       status: false,
-    //     },
-    //   })
-    //   assert.equal(res.statusCode, 200)
-    //   const foundUser = await db.user.findUnique({
-    //     where: {
-    //       id: user.id,
-    //     },
-    //   })
-    //   assert.ok(foundUser)
-    //   assert.equal(foundUser?.approved, false)
-    //   /** cleanup */
-    //   await db.user.delete({ where: { id: user.id } })
+    /** setup */
+    const admin = await db.user.create({
+      data: {
+        email: "admin@site.com",
+        name: "Admin",
+        staffId: "AB100",
+        role: UserRole.ADMIN,
+      },
+    })
+
+    const adminAuthToken = await AuthService.generateLoginAuthToken(
+      admin.id,
+      admin.role,
+    )
+
+    const user = await db.user.create({
+      data: {
+        email: "user@site.com",
+        name: "User",
+        staffId: "AB100",
+        role: UserRole.USER,
+      },
+    })
+    /** test */
+    const res = await server.inject({
+      url,
+      method,
+      headers: {
+        authorization: "Bearer " + adminAuthToken,
+      },
+      payload: {
+        userId: user.id,
+        status: false,
+      },
+    })
+    assert.equal(res.statusCode, 200)
+    const foundUser = await db.user.findUnique({
+      where: {
+        id: user.id,
+      },
+    })
+    assert.ok(foundUser)
+    assert.equal(foundUser?.approved, false)
+
+    /** cleanup */
+    await db.user.delete({ where: { id: admin.id } })
+    await db.user.delete({ where: { id: user.id } })
   })
 })

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./src/index.mjs",
     "type-check": "tsc --project jsconfig.json",
-    "test": "NODE_ENV='test' dotenv -e .env -- node --test",
+    "test": "NODE_ENV='test' dotenv -e .env -- node --test ./src/",
     "lint": "npx eslint ./src/ --ext .mjs",
     "fmt": "npx prettier --write 'src/**/*.mjs'",
     "check": "npm run type-check && npm run lint",
