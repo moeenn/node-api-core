@@ -13,11 +13,11 @@ A vanilla Javascript environment boilerplate for NodeJS API. Following tools are
 ## Scripts
 
 ```bash
-# start the application
-$ npm start
+# start the application (in production mode)
+$ npm start:prod
 
 # run the tests
-$ npm test
+$ npm test ./src/
 
 # perform linting and type checking
 $ npm run check
