@@ -1,16 +1,16 @@
-import { describe, it } from "node:test"
+import { test } from "node:test"
 import assert from "node:assert/strict"
 import { Random } from "./random.mjs"
 
-describe("Random helper", () => {
-  it("random strings", async () => {
+test("Random helper", async t => {
+  await t.test("random strings", async () => {
     const one = await Random.string(10)
     const two = await Random.string(10)
 
     assert.equal(one === two, false)
   })
 
-  it("random int", async () => {
+  await t.test("random int", async () => {
     const min = 20
     const max = 30
 
@@ -18,7 +18,7 @@ describe("Random helper", () => {
     assert.ok(result >= min && result <= max)
   })
 
-  it("random pin", async () => {
+  await t.test("random pin", async () => {
     const pin = await Random.pin(10)
     assert.equal(pin.length, 10)
   })

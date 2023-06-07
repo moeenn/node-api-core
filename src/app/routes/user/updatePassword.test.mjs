@@ -1,4 +1,4 @@
-import { describe, it, after } from "node:test"
+import { test } from "node:test"
 import assert from "node:assert/strict"
 import { Server } from "#src/core/server/index.mjs"
 import { db } from "#src/core/database/index.mjs"
@@ -7,14 +7,12 @@ import { Password } from "#src/core/helpers/password.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 import { faker } from "@faker-js/faker"
 
-describe("updatePassword", () => {
+test("updatePassword", async t => {
   const server = Server.new()
   const url = "/api/user/update-password"
   const method = "POST"
 
-  after(() => server.close())
-
-  it("valid request", async () => {
+  await t.test("valid request", async () => {
     /** setup */
     const user = await db.user.create({
       data: {
@@ -63,4 +61,6 @@ describe("updatePassword", () => {
     /** cleanup */
     await db.user.delete({ where: { id: user.id } })
   })
+
+  server.close()
 })

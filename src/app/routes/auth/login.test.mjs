@@ -3,7 +3,7 @@
  * @typedef {import("@prisma/client").Password} Password
  */
 
-import { describe, it } from "node:test"
+import { test } from "node:test"
 import assert from "node:assert"
 import { db } from "#src/core/database/index.mjs"
 import { Password as Pwd } from "#src/core/helpers/password.mjs"
@@ -11,12 +11,12 @@ import { Server } from "#src/core/server/index.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 import { faker } from "@faker-js/faker"
 
-describe("login", () => {
+test("login", async t => {
   const server = Server.new()
   const url = "/api/login"
   const method = "POST"
 
-  it("valid credentials", async () => {
+  await t.test("valid credentials", async () => {
     /** setup */
     const password = "123123123123"
     const user = await db.user.create({
@@ -63,7 +63,7 @@ describe("login", () => {
     await db.user.delete({ where: { id: user.id } })
   })
 
-  it("invalid credentials", async () => {
+  await t.test("invalid credentials", async () => {
     const res = await server.inject({
       url,
       method,

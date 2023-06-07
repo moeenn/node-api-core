@@ -1,9 +1,9 @@
-import { describe, it } from "node:test"
+import { test } from "node:test"
 import assert from "node:assert/strict"
 import { Dates } from "./dates.mjs"
 
-describe("Dates", () => {
-  it("isDateValid", () => {
+test("Dates", async (t) => {
+  await t.test("isDateValid", () => {
     const testCases = [
       { input: "2023-03-10", expected: true },
       { input: "2020-5-4", expected: true },
@@ -17,7 +17,7 @@ describe("Dates", () => {
     }
   })
 
-  it("previousDay", () => {
+  await t.test("previousDay", () => {
     const testCases = [
       { input: "2022-05-10", expected: new Date("2022-05-09") },
       { input: "2022-02-01", expected: new Date("2022-01-31") },
@@ -30,7 +30,7 @@ describe("Dates", () => {
     }
   })
 
-  it("getDateDay", () => {
+  await t.test("getDateDay", () => {
     const testCases = [
       { input: "2023-04-13", expected: "THU" },
       { input: "2023-06-25", expected: "SUN" },
@@ -43,7 +43,7 @@ describe("Dates", () => {
     }
   })
 
-  it("groupByDate", () => {
+  await t.test("groupByDate", () => {
     const input = [
       { id: 1, date: new Date("2023-07-20") },
       { id: 2, date: new Date("2023-10-01") },

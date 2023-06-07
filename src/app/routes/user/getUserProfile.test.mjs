@@ -1,4 +1,4 @@
-import { describe, it } from "node:test"
+import { test } from "node:test"
 import assert from "node:assert/strict"
 import { Server } from "#src/core/server/index.mjs"
 import { db } from "#src/core/database/index.mjs"
@@ -6,12 +6,12 @@ import { UserRole } from "@prisma/client"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 import { faker } from "@faker-js/faker"
 
-describe("getUserProfile", () => {
+test("getUserProfile", async t => {
   const server = Server.new()
   const url = "/api/user/profile"
   const method = "GET"
 
-  it("valid request", async () => {
+  await t.test("valid request", async () => {
     /** setup */
     const user = await db.user.create({
       data: {
@@ -45,7 +45,7 @@ describe("getUserProfile", () => {
     await db.user.delete({ where: { id: user.id } })
   })
 
-  it("invalid token", async () => {
+  await t.test("invalid token", async () => {
     /** setup */
     const authToken = await AuthService.generateLoginAuthToken(
       "5000",
@@ -63,7 +63,7 @@ describe("getUserProfile", () => {
     assert.equal(res.statusCode, 401)
   })
 
-  it("invalid token", async () => {
+  await t.test("invalid token", async () => {
     const res = await server.inject({
       url,
       method,

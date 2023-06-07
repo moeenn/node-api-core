@@ -1,13 +1,13 @@
-import { describe, it } from "node:test"
+import { test } from "node:test"
 import assert from "node:assert/strict"
 import { Server } from "#src/core/server/index.mjs"
 
-describe("passwordStrengthCheck", async () => {
+test("passwordStrengthCheck", async (t) => {
   const server = Server.new()
   const url = "/api/password-strength"
   const method = "POST"
 
-  it("strong password", async () => {
+  await t.test("strong password", async () => {
     const payload = {
       password: "!@#abc#$%Ac1",
     }
@@ -27,7 +27,7 @@ describe("passwordStrengthCheck", async () => {
     assert.equal(body.errors.length, 0)
   })
 
-  it("weak (short) password", async () => {
+  await t.test("weak (short) password", async () => {
     const payload = {
       password: "!@#abc",
     }
@@ -47,7 +47,7 @@ describe("passwordStrengthCheck", async () => {
     assert.equal(body.errors.length, 1)
   })
 
-  it("weak (repeating) password", async () => {
+  await t.test("weak (repeating) password", async () => {
     const payload = {
       password: "111111111111111111111111111111111",
     }

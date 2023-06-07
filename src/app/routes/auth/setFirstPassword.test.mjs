@@ -1,4 +1,4 @@
-import { describe, it } from "node:test"
+import { test } from "node:test"
 import assert from "node:assert/strict"
 import { Server } from "#src/core/server/index.mjs"
 import { db } from "#src/core/database/index.mjs"
@@ -7,12 +7,12 @@ import { AuthService } from "#src/core/services/authService/index.mjs"
 import { Password } from "#src/core/helpers/password.mjs"
 import { faker } from "@faker-js/faker"
 
-describe("setFirstPassword", () => {
+test("setFirstPassword", async t => {
   const server = Server.new()
   const url = "/api/user/configure"
   const method = "POST"
 
-  it("valid configure request", async () => {
+  await t.test("valid configure request", async () => {
     /** setup */
     const user = await db.user.create({
       data: {
@@ -57,7 +57,7 @@ describe("setFirstPassword", () => {
     await db.user.delete({ where: { id: user.id } })
   })
 
-  it("account already configured", async () => {
+  await t.test("account already configured", async () => {
     /** setup */
     const password = faker.internet.password({ length: 10 })
     const user = await db.user.create({

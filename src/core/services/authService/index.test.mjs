@@ -1,10 +1,10 @@
 import { UserRole } from "@prisma/client"
-import { describe, it } from "node:test"
+import { test } from "node:test"
 import assert from "node:assert/strict"
 import { AuthService } from "./index.mjs"
 
-describe("AuthService", () => {
-  it("generate and validate login auth token", async () => {
+test("AuthService", async t => {
+  await t.test("generate and validate login auth token", async () => {
     const loginToken = await AuthService.generateLoginAuthToken(
       "abc123",
       UserRole.USER,
@@ -17,32 +17,32 @@ describe("AuthService", () => {
     assert.equal(userRole, UserRole.USER)
   })
 
-  it("invalid login auth token", async () => {
+  await t.test("invalid login auth token", async () => {
     assert.rejects(() => AuthService.validateLoginAuthToken("random-token"), {
       message: /Invalid/,
     })
   })
 
-  it("generate and validate first password token", async () => {
+  await t.test("generate and validate first password token", async () => {
     const loginToken = await AuthService.generateFirstPasswordToken("abc123")
     const userId = await AuthService.validateFirstPasswordToken(loginToken)
     assert.equal(userId, "abc123")
   })
 
-  it("invalid first password token", async () => {
+  await t.test("invalid first password token", async () => {
     assert.rejects(
       () => AuthService.validateFirstPasswordToken("random-token"),
       { message: /Invalid/ },
     )
   })
 
-  it("generate and validate password reset token", async () => {
+  await t.test("generate and validate password reset token", async () => {
     const loginToken = await AuthService.generatePasswordResetToken("abc123")
     const userId = await AuthService.validatePasswordResetToken(loginToken)
     assert.equal(userId, "abc123")
   })
 
-  it("invalid reset password token", async () => {
+  await t.test("invalid reset password token", async () => {
     assert.rejects(
       () => AuthService.validatePasswordResetToken("random-token"),
       { message: /Invalid/ },

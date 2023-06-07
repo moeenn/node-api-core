@@ -1,4 +1,4 @@
-import { describe, it } from "node:test"
+import { test } from "node:test"
 import assert from "node:assert/strict"
 import { Server } from "#src/core/server/index.mjs"
 import { db } from "#src/core/database/index.mjs"
@@ -6,12 +6,12 @@ import { UserRole } from "@prisma/client"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 import { faker } from "@faker-js/faker"
 
-describe("memoryUsage", () => {
+test("memoryUsage", async (t) => {
   const server = Server.new()
   const url = "/api/health-check/memory"
   const method = "GET"
 
-  it("admin auth token is required", async () => {
+  await t.test("admin auth token is required", async () => {
     /** setup */
     const user = await db.user.create({
       data: {

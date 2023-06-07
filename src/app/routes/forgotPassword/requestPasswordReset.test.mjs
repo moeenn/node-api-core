@@ -1,5 +1,5 @@
 /** @typedef {import("#src/app/emails/forgotPasswordEmail.mjs").ForgotPasswordEmailArgs} ForgotPasswordEmailArgs */
-import { describe, it } from "node:test"
+import { test } from "node:test"
 import assert from "node:assert/strict"
 import { Server } from "#src/core/server/index.mjs"
 import { db } from "#src/core/database/index.mjs"
@@ -8,12 +8,12 @@ import { EmailService } from "#src/core/email/index.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 import { faker } from "@faker-js/faker"
 
-describe("requestPasswordReset", () => {
+test("requestPasswordReset", async t => {
   const server = Server.new()
   const url = "/api/forgot-password/request-reset"
   const method = "POST"
 
-  it("valid request", async () => {
+  await t.test("valid request", async () => {
     /** setup */
     const user = await db.user.create({
       data: {
@@ -54,7 +54,7 @@ describe("requestPasswordReset", () => {
     EmailService.instance().clearSentEmails()
   })
 
-  it("invalid email address", async () => {
+  await t.test("invalid email address", async () => {
     const email = faker.internet.email()
 
     const res = await server.inject({

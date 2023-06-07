@@ -1,9 +1,9 @@
-import { describe, it } from "node:test"
+import { test } from "node:test"
 import assert from "node:assert/strict"
 import { routes } from "#src/app/routes/index.mjs"
 
-describe("route definitins", () => {
-  it("route method and url duplication test", () => {
+test("route definitins", async t => {
+  await t.test("route method and url duplication test", () => {
     /** @type {string[]} */
     const routeKeys = routes.map((r) => r.method + " " + r.url)
     const duplicates = findDuplicates(routeKeys)

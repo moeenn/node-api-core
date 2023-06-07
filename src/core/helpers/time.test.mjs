@@ -1,9 +1,9 @@
-import { describe, it } from "node:test"
+import { test } from "node:test"
 import assert from "node:assert/strict"
 import { Time } from "./time.mjs"
 
-describe("Time", () => {
-  it("parseString", () => {
+test("Time", async t => {
+  await t.test("parseString", () => {
     const testCases = [
       { input: "10:20", expected: new Time(10, 20) },
       { input: "12:00", expected: new Time(12, 0) },
@@ -21,7 +21,7 @@ describe("Time", () => {
     }
   })
 
-  it("formatParsedTime", () => {
+  await t.test("formatParsedTime", () => {
     const testCases = [
       { input: new Time(10, 30), output: "10:30" },
       { input: new Time(1, 5), output: "01:05" },
@@ -33,7 +33,7 @@ describe("Time", () => {
     }
   })
 
-  it("addDuration", () => {
+  await t.test("addDuration", () => {
     const testCases = [
       {
         input: {
@@ -71,7 +71,7 @@ describe("Time", () => {
     }
   })
 
-  it("addDurationToTimeString", () => {
+  await t.test("addDurationToTimeString", () => {
     const testCases = [
       {
         input: {
@@ -110,7 +110,7 @@ describe("Time", () => {
     }
   })
 
-  it("toMins", () => {
+  await t.test("toMins", () => {
     const input = new Time(2, 30)
     const expected = 150
     const got = input.toMins()
@@ -118,7 +118,7 @@ describe("Time", () => {
     assert.equal(got, expected)
   })
 
-  it("timeDelta", () => {
+  await t.test("timeDelta", () => {
     const testCases = [
       {
         input: {
@@ -149,7 +149,7 @@ describe("Time", () => {
     }
   })
 
-  it("timeToMidnight", () => {
+  await t.test("timeToMidnight", () => {
     const testCases = [
       {
         input: new Time(23, 0),
@@ -171,7 +171,7 @@ describe("Time", () => {
     }
   })
 
-  it("isWithinTimeRange", () => {
+  await t.test("isWithinTimeRange", () => {
     const testCases = [
       {
         input: {

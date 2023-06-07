@@ -3,11 +3,8 @@ FROM node:20-alpine
 WORKDIR /app
 COPY . .
 
-RUN npm i --save-dev
-RUN npm run schema:generate
-RUN npm run build
-
+RUN npm ci
 ENV NODE_ENV=production
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "start:prod"]
 EXPOSE 5000

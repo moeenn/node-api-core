@@ -1,4 +1,4 @@
-import { describe, it, after } from "node:test"
+import { test } from "node:test"
 import assert from "node:assert/strict"
 import { Server } from "#src/core/server/index.mjs"
 import { db } from "#src/core/database/index.mjs"
@@ -6,14 +6,12 @@ import { UserRole } from "@prisma/client"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 import { faker } from "@faker-js/faker"
 
-describe("updateUserProfile", () => {
+test("updateUserProfile", async t => {
   const server = Server.new()
   const url = "/api/user/profile"
   const method = "PUT"
 
-  after(() => server.close())
-
-  it("valid request", async () => {
+  await t.test("valid request", async () => {
     /** setup */
     const user = await db.user.create({
       data: {
@@ -50,4 +48,6 @@ describe("updateUserProfile", () => {
     /** cleanup */
     await db.user.delete({ where: { id: user.id } })
   })
+
+  server.close()
 })

@@ -1,9 +1,9 @@
-import { describe, it } from "node:test"
+import { test } from "node:test"
 import assert from "node:assert/strict"
 import { JWT } from "./jwt.mjs"
 
-describe("JWT", () => {
-  it("validate JWT", async () => {
+test("JWT", async t => {
+  await t.test("validate JWT", async () => {
     const secret = "some_random_secret"
     const payload = {
       id: 4000,
@@ -18,7 +18,7 @@ describe("JWT", () => {
     assert.equal(result.id, payload.id)
   })
 
-  it("invalid token", async () => {
+  await t.test("invalid token", async () => {
     const secret = "some_random_secret"
     const payload = {
       id: 4000,
