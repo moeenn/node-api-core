@@ -1,7 +1,6 @@
-/** @typedef {import("fastify").RouteOptions} RouteOptions */
 import { HealthCheckService } from "#src/core/services/healthCheckService.mjs"
 
-/** @type {RouteOptions} */
+/** @type {import("fastify").RouteOptions} */
 export const healthCheck = {
   url: "/health-check",
   method: "GET",

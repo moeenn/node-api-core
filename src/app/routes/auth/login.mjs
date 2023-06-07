@@ -1,7 +1,3 @@
-/* eslint-disable-next-line no-unused-vars */
-import jsonSchema from "json-schema-to-ts"
-
-/** @typedef {import("fastify").RouteOptions} RouteOptions */
 import { authConfig } from "#src/app/config/authConfig.mjs"
 import { db } from "#src/core/database/index.mjs"
 import {
@@ -22,9 +18,7 @@ const bodySchema = /** @type {const} */ ({
   additionalProperties: false,
 })
 
-/** @typedef {jsonSchema.FromSchema<typeof bodySchema>} Body */
-
-/** @type {RouteOptions} */
+/** @type {import("fastify").RouteOptions} */
 export const login = {
   url: "/login",
   method: "POST",
@@ -38,7 +32,7 @@ export const login = {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = /** @type {Body} */ (req.body)
+    const body = /** @type {import("json-schema-to-ts").FromSchema<typeof bodySchema>} */ (req.body)
 
     const user = await db.user.findFirst({
       where: {

@@ -1,7 +1,7 @@
 import { env } from "#src/core/helpers/env.mjs"
-import { AWSEmailProvider } from "#src/core/email/providers/awsEmailProvider.mjs"
+import { TestEmailProvider } from "#src/core/email/providers/testEmailProvider.mjs"
 
 export const emailConfig = {
-  provider: AWSEmailProvider,
+  provider: TestEmailProvider,
   fromEmail: env("FROM_EMAIL"),
 }

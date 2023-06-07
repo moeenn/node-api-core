@@ -1,9 +1,5 @@
-/** @typedef {import("fastify").RouteOptions} RouteOptions */
 import { validateToken, hasRole } from "#src/core/server/middleware/index.mjs"
 import { UserRole } from "@prisma/client"
-
-/* eslint-disable-next-line no-unused-vars */
-import jsonSchema from "json-schema-to-ts"
 import { db } from "#src/core/database/index.mjs"
 import { logger } from "#src/core/server/logger/index.mjs"
 import { BadRequestException } from "#src/core/exceptions/index.mjs"
@@ -18,9 +14,7 @@ const bodySchema = /** @type {const} */ ({
   additionalProperties: false,
 })
 
-/** @typedef {jsonSchema.FromSchema<typeof bodySchema>} Body */
-
-/** @type {RouteOptions} */
+/** @type {import("fastify").RouteOptions} */
 export const setUserStatus = {
   url: "/user/set-status",
   method: "POST",
@@ -29,7 +23,7 @@ export const setUserStatus = {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = /** @type {Body} */ (req.body)
+    const body = /** @type {import("json-schema-to-ts").FromSchema<typeof bodySchema>} */ (req.body)
 
     const user = await db.user.findFirst({
       where: {

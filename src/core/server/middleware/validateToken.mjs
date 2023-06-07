@@ -12,7 +12,6 @@ export const validateToken = async (req) => {
   const { userId, userRole } = await AuthService.validateLoginAuthToken(token)
 
   /* store id of the validated user on the request object */
-  req.requestContext.set("token", token)
   req.requestContext.set("userId", userId)
   req.requestContext.set("userRole", userRole)
 }

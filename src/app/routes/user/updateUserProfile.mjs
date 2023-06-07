@@ -1,11 +1,8 @@
-/** @typedef {import("fastify").RouteOptions} RouteOptions */
 import { db } from "#src/core/database/index.mjs"
 import { AuthException } from "#src/core/exceptions/index.mjs"
 import { logger } from "#src/core/server/logger/index.mjs"
 import { validateToken } from "#src/core/server/middleware/index.mjs"
-
-/* eslint-disable-next-line no-unused-vars */
-import jsonSchema from "json-schema-to-ts"
+import { requestMeta} from "#src/core/helpers/requestMeta.mjs"
 
 const bodySchema = /** @type {const} */ ({
   type: "object",
@@ -17,9 +14,7 @@ const bodySchema = /** @type {const} */ ({
   additionalProperties: false,
 })
 
-/** @typedef {jsonSchema.FromSchema<typeof bodySchema>} Body */
-
-/** @type {RouteOptions} */
+/** @type {import("fastify").RouteOptions} */
 export const updateUserProfile = {
   url: "/user/profile",
   method: "PUT",
@@ -28,8 +23,8 @@ export const updateUserProfile = {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = /** @type {Body} */ (req.body)
-    const userId = req.requestContext.get("userId")
+    const body = /** @type {import("json-schema-to-ts").FromSchema<typeof bodySchema>} */ (req.body)
+    const { userId } = requestMeta(req)
 
     const user = await db.user.findUnique({
       where: {

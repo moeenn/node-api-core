@@ -13,7 +13,7 @@ function generateError(code, statusCode) {
 }
 
 export const BadRequestException = generateError("BAD_REQUEST", 400)
-export const AuthException = generateError("AUTH_ERROR", 401)
-export const ForbiddenException = generateError("FORBIDDEN_ERROR", 403)
-export const NotFoundException = generateError("NOT_FOUND_ERROR", 404)
-export const ValidationException = generateError("VALIDATION_ERROR", 422)
+export const AuthException = generateError("UNAUTHORIZED", 401)
+export const ForbiddenException = generateError("FORBIDDEN", 403)
+export const NotFoundException = generateError("NOT_FOUND", 404)
+export const ValidationException = generateError("UNPROCESSABLE_ENTITY", 422)

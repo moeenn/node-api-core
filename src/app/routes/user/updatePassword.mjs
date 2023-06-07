@@ -1,5 +1,3 @@
-/** @typedef {import("fastify").RouteOptions} RouteOptions */
-
 import { authConfig } from "#src/app/config/authConfig.mjs"
 import { db } from "#src/core/database/index.mjs"
 import {
@@ -7,11 +5,9 @@ import {
   BadRequestException,
 } from "#src/core/exceptions/index.mjs"
 import { Password } from "#src/core/helpers/password.mjs"
+import { requestMeta } from "#src/core/helpers/requestMeta.mjs"
 import { logger } from "#src/core/server/logger/index.mjs"
 import { validateToken } from "#src/core/server/middleware/index.mjs"
-
-/* eslint-disable-next-line no-unused-vars */
-import jsonSchema from "json-schema-to-ts"
 
 const bodySchema = /** @type {const} */ ({
   type: "object",
@@ -26,9 +22,7 @@ const bodySchema = /** @type {const} */ ({
   additionalProperties: false,
 })
 
-/** @typedef {jsonSchema.FromSchema<typeof bodySchema>} Body */
-
-/** @type {RouteOptions} */
+/** @type {import("fastify").RouteOptions} */
 export const updatePassword = {
   url: "/user/update-password",
   method: "POST",
@@ -43,8 +37,8 @@ export const updatePassword = {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = /** @type {Body} */ (req.body)
-    const userId = req.requestContext.get("userId")
+    const body = /** @type {import("json-schema-to-ts").FromSchema<typeof bodySchema>} */ (req.body)
+    const { userId } = requestMeta(req)
 
     if (body.password !== body.confirmPassword) {
       throw BadRequestException("Password confirmation failed")

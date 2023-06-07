@@ -1,7 +1,3 @@
-/* eslint-disable-next-line no-unused-vars */
-import jsonSchema from "json-schema-to-ts"
-
-/** @typedef {import("fastify").RouteOptions} RouteOptions */
 import { authConfig } from "#src/app/config/authConfig.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 import { db } from "#src/core/database/index.mjs"
@@ -23,9 +19,8 @@ const bodySchema = /** @type {const} */ ({
   additionalProperties: false,
 })
 
-/** @typedef {jsonSchema.FromSchema<typeof bodySchema>} Body */
 
-/** @type {RouteOptions} */
+/** @type {import("fastify").RouteOptions} */
 export const setFirstPassword = {
   url: "/user/configure",
   method: "POST",
@@ -33,7 +28,7 @@ export const setFirstPassword = {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = /** @type {Body} */ (req.body)
+    const body = /** @type {import("json-schema-to-ts").FromSchema<typeof bodySchema>} */ (req.body)
 
     if (body.password !== body.confirmPassword) {
       throw BadRequestException("Password confirmation failed")

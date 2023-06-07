@@ -3,7 +3,7 @@
  */
 
 import { authConfig } from "#src/app/config/authConfig.mjs"
-import { JWT, env } from "#src/core/helpers/index.mjs"
+import { JWT } from "#src/core/helpers/index.mjs"
 import {
   BadRequestException,
   ForbiddenException,
@@ -20,10 +20,8 @@ export function generateGeneralToken(type) {
    * @returns {Promise<string>}
    */
   return async (userId) => {
-    const jwtSecret = env("JWT_SECRET")
     const { scope, expiry } = authConfig.tokens[type]
-
-    const token = await JWT.generate(jwtSecret, { userId, scope }, expiry)
+    const token = await JWT.generate(authConfig.secret, { userId, scope }, expiry)
     return token
   }
 }
@@ -42,11 +40,10 @@ export function generateLoginToken(type) {
    * @returns {Promise<string>}
    */
   return async (userId, userRole) => {
-    const jwtSecret = env("JWT_SECRET")
     const { scope, expiry } = authConfig.tokens[type]
 
     const token = await JWT.generate(
-      jwtSecret,
+      authConfig.secret,
       { userId, scope, userRole },
       expiry,
     )
@@ -65,7 +62,7 @@ export function validateGeneralToken(type) {
    * @returns {Promise<string>}
    */
   return async (token) => {
-    const jwtPayload = await JWT.validate(env("JWT_SECRET"), token)
+    const jwtPayload = await JWT.validate(authConfig.secret, token)
 
     const result = /** @type {{ userId?: string; scope?: string }} */ (
       jwtPayload
@@ -93,7 +90,7 @@ export function validateLoginToken(type) {
    * @returns {Promise<{ userId: string; userRole: string }>}
    */
   return async (token) => {
-    const jwtPayload = await JWT.validate(env("JWT_SECRET"), token)
+    const jwtPayload = await JWT.validate(authConfig.secret, token)
     if (!jwtPayload) {
       throw ForbiddenException("Invalid or expired token")
     }

@@ -1,2 +1,5 @@
 import pino from "pino"
-export const logger = pino()
+import { isTest } from "#src/core/helpers/isTest.mjs"
+
+const level = isTest() ? "silent" : "info"
+export const logger = pino({ level })

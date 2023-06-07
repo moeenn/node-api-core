@@ -4,13 +4,14 @@ import ajvFormats from "ajv-formats"
 import cors from "@fastify/cors"
 import helmet from "@fastify/helmet"
 import rateLimit from "@fastify/rate-limit"
+import process from "node:process"
 import {
   routesPlugin,
   rateLimitPluginOptions,
   requestContextPluginOptions,
 } from "./plugins/index.mjs"
 import { serverConfig } from "#src/app/config/serverConfig.mjs"
-import process from "node:process"
+import { isTest } from "#src/core/helpers/isTest.mjs"
 
 export const Server = {
   /** @typedef {import("fastify").FastifyInstance} FastifyInstance */
@@ -19,7 +20,7 @@ export const Server = {
   new() {
     /* disable request logging during testing */
     const app = fastify({
-      logger: process.env.NODE_ENV !== "test",
+      logger: !isTest(),
       ajv: {
         plugins: [
           ajvFormats /** See: https://ajv.js.org/packages/ajv-formats.html */,

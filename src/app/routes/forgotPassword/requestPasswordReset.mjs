@@ -1,9 +1,5 @@
 import { db } from "#src/core/database/index.mjs"
 import { logger } from "#src/core/server/logger/index.mjs"
-/** @typedef {import("fastify").RouteOptions} RouteOptions */
-
-/* eslint-disable-next-line no-unused-vars */
-import jsonSchema from "json-schema-to-ts"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 import { ForgotPasswordEmail } from "#src/app/emails/forgotPasswordEmail.mjs"
 import { EmailService } from "#src/core/email/index.mjs"
@@ -17,9 +13,8 @@ const bodySchema = /** @type {const} */ ({
   additionalProperties: false,
 })
 
-/** @typedef {jsonSchema.FromSchema<typeof bodySchema>} Body */
 
-/** @type {RouteOptions} */
+/** @type {import("fastify").RouteOptions} */
 export const requestPasswordReset = {
   url: "/forgot-password/request-reset",
   method: "POST",
@@ -27,7 +22,7 @@ export const requestPasswordReset = {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = /** @type {Body} */ (req.body)
+    const body = /** @type {import("json-schema-to-ts").FromSchema<typeof bodySchema>} */ (req.body)
 
     const user = await db.user.findUnique({
       where: {

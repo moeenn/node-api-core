@@ -1,7 +1,3 @@
-/* eslint-disable-next-line no-unused-vars */
-import jsonSchema from "json-schema-to-ts"
-
-/** @typedef {import("fastify").RouteOptions} RouteOptions */
 import { Password } from "#src/core/helpers/password.mjs"
 import { authConfig } from "#src/app/config/authConfig.mjs"
 
@@ -14,9 +10,8 @@ const bodySchema = /** @type {const} */ ({
   additionalProperties: false,
 })
 
-/** @typedef {jsonSchema.FromSchema<typeof bodySchema>} Body */
 
-/** @type {RouteOptions} */
+/** @type {import("fastify").RouteOptions} */
 export const passwordStrengthCheck = {
   url: "/password-strength",
   method: "POST",
@@ -24,7 +19,7 @@ export const passwordStrengthCheck = {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = /** @type {Body} */ (req.body)
+    const body = /** @type {import("json-schema-to-ts").FromSchema<typeof bodySchema>} */ (req.body)
 
     if (body.password.length < authConfig.password.minLength) {
       return {

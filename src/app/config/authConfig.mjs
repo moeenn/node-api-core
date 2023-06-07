@@ -1,4 +1,8 @@
+import { env } from "#src/core/helpers/env.mjs"
+
 export const authConfig = {
+  /** secret for signing tokens */
+  secret: env("APP_SECRET"),
   password: {
     minLength: 10 /* 10 is min required by OWASP */,
   },
@@ -18,6 +22,5 @@ export const authConfig = {
   authStateDefaults: {
     userId: "",
     userRole: "",
-    token: "",
   },
 }
