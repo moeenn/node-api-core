@@ -1,4 +1,3 @@
-/** @typedef {import("fastify").RouteOptions} RouteOptions */
 import { healthCheck } from "./healthcheck/healthcheck.mjs"
 import { memoryUsage } from "./healthcheck/memoryUsage.mjs"
 import { passwordStrengthCheck } from "./auth/passwordStrengthCheck.mjs"
@@ -15,7 +14,7 @@ import { updateUserProfile } from "./user/updateUserProfile.mjs"
 /**
  * register all routes here
  *
- * @type {RouteOptions[]}
+ * @type {import("fastify").RouteOptions[]}
  */
 export const routes = [
   healthCheck,

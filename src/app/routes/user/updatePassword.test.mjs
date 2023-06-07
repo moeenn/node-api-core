@@ -17,8 +17,7 @@ test("updatePassword", async t => {
     const user = await db.user.create({
       data: {
         email: faker.internet.email(),
-        name: "User",
-        staffId: faker.lorem.slug(),
+        name: faker.internet.userName(),
         role: UserRole.USER,
         password: {
           create: {
@@ -38,7 +37,7 @@ test("updatePassword", async t => {
       url,
       method,
       headers: {
-        authorization: "Bearer " + authToken,
+        authorization: "Bearer " + authToken.token,
       },
       payload: {
         password: updatedPassword,

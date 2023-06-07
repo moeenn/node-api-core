@@ -16,8 +16,7 @@ test("memoryUsage", async (t) => {
     const user = await db.user.create({
       data: {
         email: faker.internet.email(),
-        name: "User",
-        staffId: faker.string.alphanumeric(),
+        name: faker.internet.userName(),
         role: UserRole.USER,
       },
     })
@@ -31,7 +30,7 @@ test("memoryUsage", async (t) => {
       url,
       method,
       headers: {
-        authorization: "Bearer " + authToken,
+        authorization: "Bearer " + authToken.token,
       },
     })
 

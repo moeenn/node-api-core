@@ -8,7 +8,6 @@ export const adminSeeder = async (client) => {
     data: {
       name: "Admin",
       email: "admin@site.com",
-      staffId: "ADM001",
       role: UserRole.ADMIN,
       password: {
         create: {

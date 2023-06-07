@@ -1,6 +1,4 @@
-/**
- * @typedef {import("@prisma/client").UserRole} UserRole
- */
+/** @typedef {import("@prisma/client").UserRole} UserRole */
 
 import { authConfig } from "#src/app/config/authConfig.mjs"
 import { JWT } from "#src/core/helpers/index.mjs"
@@ -8,6 +6,18 @@ import {
   BadRequestException,
   ForbiddenException,
 } from "#src/core/exceptions/index.mjs"
+
+/**
+ *
+ * @param {number} delayInSeconds
+ * @returns {number}
+ */
+function calculateTokenExpiry(delayInSeconds) {
+  const now = new Date()
+  const delayInMs = 1000 * delayInSeconds
+
+  return now.getTime() + delayInMs
+}
 
 /**
  *
@@ -30,24 +40,28 @@ export function generateGeneralToken(type) {
  * this function is different from the generateToken function because it also
  * encodes the user role inside the token
  *
+ * @typedef {{ token: string, expiry: number}} LoginTokenResult
+ *
  * @param {keyof typeof authConfig.tokens} type
- * @returns {(userId: string, userRole: UserRole) => Promise<string>}
+ * @returns {(userId: string, userRole: UserRole) => Promise<LoginTokenResult>}
  */
 export function generateLoginToken(type) {
   /**
    * @param {string} userId
    * @param {string} userRole
-   * @returns {Promise<string>}
+   * @returns {Promise<LoginTokenResult>}
    */
   return async (userId, userRole) => {
-    const { scope, expiry } = authConfig.tokens[type]
+    const tokenConfig = authConfig.tokens[type]
 
     const token = await JWT.generate(
       authConfig.secret,
-      { userId, scope, userRole },
-      expiry,
+      { userId, scope: tokenConfig.scope, userRole },
+      tokenConfig.expiry,
     )
-    return token
+
+    const expiry = calculateTokenExpiry(tokenConfig.expiry)
+    return { token, expiry }
   }
 }
 

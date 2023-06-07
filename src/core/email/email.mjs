@@ -33,6 +33,6 @@ export class Email {
    */
   html() {
     const md = this.template().trim()
-    return marked.parse(md)
+    return marked.parse(md, { mangle: false, headerIds: false })
   }
 }

@@ -11,7 +11,7 @@ test("AuthService", async t => {
     )
 
     const { userId, userRole } = await AuthService.validateLoginAuthToken(
-      loginToken,
+      loginToken.token,
     )
     assert.equal(userId, "abc123")
     assert.equal(userRole, UserRole.USER)

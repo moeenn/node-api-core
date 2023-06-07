@@ -18,8 +18,7 @@ test("requestPasswordReset", async t => {
     const user = await db.user.create({
       data: {
         email: faker.internet.email(),
-        name: "User",
-        staffId: faker.string.alphanumeric(),
+        name: faker.internet.userName(),
         role: UserRole.USER,
       },
     })
@@ -47,7 +46,7 @@ test("requestPasswordReset", async t => {
       emailArgs.resetToken,
     )
 
-    assert.ok(isTokenValid !== "")
+    assert.ok(isTokenValid)
 
     /** cleanup */
     await db.user.delete({ where: { id: user.id } })

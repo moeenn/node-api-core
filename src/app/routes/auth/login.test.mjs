@@ -22,8 +22,7 @@ test("login", async t => {
     const user = await db.user.create({
       data: {
         email: faker.internet.email(),
-        name: "Mr. User",
-        staffId: faker.string.alphanumeric(),
+        name: faker.internet.userName(),
         password: {
           create: {
             hash: await Pwd.hash(password),
@@ -38,7 +37,7 @@ test("login", async t => {
       method,
       payload: {
         email: user.email,
-        password: password,
+        password,
       },
     })
 
@@ -47,7 +46,7 @@ test("login", async t => {
       @type {{
       user: User
       password: Password
-      token: string
+      token: { token: string, expiry: number }
     }}
     */ (JSON.parse(res.body))
 
@@ -55,7 +54,7 @@ test("login", async t => {
     assert.equal(body.password, undefined)
     assert.ok(body.token)
 
-    const result = await AuthService.validateLoginAuthToken(body.token)
+    const result = await AuthService.validateLoginAuthToken(body.token.token)
     assert.equal(result.userId, user.id)
     assert.equal(result.userRole, user.role)
 

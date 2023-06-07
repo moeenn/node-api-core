@@ -8,7 +8,6 @@ const bodySchema = /** @type {const} */ ({
   type: "object",
   properties: {
     name: { type: "string" },
-    phone: { type: "string" }, // optional
   },
   required: ["name"],
   additionalProperties: false,
@@ -43,7 +42,6 @@ export const updateUserProfile = {
       },
       data: {
         name: body.name,
-        phone: body.phone,
       },
     })
 
