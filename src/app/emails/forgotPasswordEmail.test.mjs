@@ -3,7 +3,7 @@ import assert from "node:assert/strict"
 import { ForgotPasswordEmail } from "./forgotPasswordEmail.mjs"
 import { appConfig } from "#src/app/config/appConfig.mjs"
 
-test("ForgotPasswordEmail test", async t => {
+test("ForgotPasswordEmail test", async (t) => {
   await t.test("email html has all provided fields", () => {
     const args = {
       resetToken: "http://site.com/reset",

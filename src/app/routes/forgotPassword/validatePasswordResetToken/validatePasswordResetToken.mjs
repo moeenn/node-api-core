@@ -1,13 +1,5 @@
 import { AuthService } from "#src/core/services/authService/index.mjs"
-
-const bodySchema = /** @type {const} */ ({
-  type: "object",
-  properties: {
-    token: { type: "string" },
-  },
-  required: ["token"],
-  additionalProperties: false,
-})
+import { bodySchema } from "./validatePasswordResetToken.schema.mjs"
 
 /** @type {import("fastify").RouteOptions} */
 export const validatePasswordResetToken = {
@@ -17,7 +9,10 @@ export const validatePasswordResetToken = {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = /** @type {import("json-schema-to-ts").FromSchema<typeof bodySchema>} */ (req.body)
+    const body =
+      /** @type {import("./validatePasswordResetToken.schema.mjs").Body} */ (
+        req.body
+      )
     const isValid = await AuthService.validatePasswordResetToken(body.token)
 
     return {

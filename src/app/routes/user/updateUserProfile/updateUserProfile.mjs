@@ -2,16 +2,8 @@ import { db } from "#src/core/database/index.mjs"
 import { AuthException } from "#src/core/exceptions/index.mjs"
 import { logger } from "#src/core/server/logger/index.mjs"
 import { validateToken } from "#src/core/server/middleware/index.mjs"
-import { requestMeta} from "#src/core/helpers/requestMeta.mjs"
-
-const bodySchema = /** @type {const} */ ({
-  type: "object",
-  properties: {
-    name: { type: "string" },
-  },
-  required: ["name"],
-  additionalProperties: false,
-})
+import { requestMeta } from "#src/core/helpers/requestMeta.mjs"
+import { bodySchema } from "./updateUserProfile.schema.mjs"
 
 /** @type {import("fastify").RouteOptions} */
 export const updateUserProfile = {
@@ -22,7 +14,9 @@ export const updateUserProfile = {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = /** @type {import("json-schema-to-ts").FromSchema<typeof bodySchema>} */ (req.body)
+    const body = /** @type {import("./updateUserProfile.schema.mjs").Body} */ (
+      req.body
+    )
     const { userId } = requestMeta(req)
 
     const user = await db.user.findUnique({

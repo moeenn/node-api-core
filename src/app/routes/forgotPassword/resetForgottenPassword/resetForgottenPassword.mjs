@@ -1,4 +1,3 @@
-import { authConfig } from "#src/app/config/authConfig.mjs"
 import {
   AuthException,
   BadRequestException,
@@ -7,20 +6,7 @@ import { AuthService } from "#src/core/services/authService/index.mjs"
 import { db } from "#src/core/database/index.mjs"
 import { logger } from "#src/core/server/logger/index.mjs"
 import { Password } from "#src/core/helpers/password.mjs"
-
-const bodySchema = /** @type {const} */ ({
-  type: "object",
-  properties: {
-    token: { type: "string" },
-    password: { type: "string", minLength: authConfig.password.minLength },
-    confirmPassword: {
-      type: "string",
-      minLength: authConfig.password.minLength,
-    },
-  },
-  required: ["token", "password", "confirmPassword"],
-  additionalProperties: false,
-})
+import { bodySchema } from "./resetForgottenPassword.schema.mjs"
 
 /** @type {import("fastify").RouteOptions} */
 export const resetForgottenPassword = {
@@ -30,7 +16,10 @@ export const resetForgottenPassword = {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = /** @type {import("json-schema-to-ts").FromSchema<typeof bodySchema>} */ (req.body)
+    const body =
+      /** @type {import("./resetForgottenPassword.schema.mjs").Body} */ (
+        req.body
+      )
 
     if (body.password !== body.confirmPassword) {
       throw BadRequestException("Password confirmation failed")

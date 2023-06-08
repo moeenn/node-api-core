@@ -6,8 +6,8 @@ import {
 } from "./helpers.mjs"
 
 export const AuthService = {
-  generateLoginAuthToken: generateLoginToken("auth"),
-  validateLoginAuthToken: validateLoginToken("auth"),
+  generateLoginToken: generateLoginToken("auth"),
+  validateLoginToken: validateLoginToken("auth"),
 
   generateFirstPasswordToken: generateGeneralToken("firstPassword"),
   validateFirstPasswordToken: validateGeneralToken("firstPassword"),

@@ -3,16 +3,7 @@ import { logger } from "#src/core/server/logger/index.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 import { ForgotPasswordEmail } from "#src/app/emails/forgotPasswordEmail.mjs"
 import { EmailService } from "#src/core/email/index.mjs"
-
-const bodySchema = /** @type {const} */ ({
-  type: "object",
-  properties: {
-    email: { type: "string", format: "email" },
-  },
-  required: ["email"],
-  additionalProperties: false,
-})
-
+import { bodySchema } from "./requestPasswordReset.schema.mjs"
 
 /** @type {import("fastify").RouteOptions} */
 export const requestPasswordReset = {
@@ -22,7 +13,8 @@ export const requestPasswordReset = {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = /** @type {import("json-schema-to-ts").FromSchema<typeof bodySchema>} */ (req.body)
+    const body =
+      /** @type {import("./requestPasswordReset.schema.mjs").Body} */ (req.body)
 
     const user = await db.user.findUnique({
       where: {

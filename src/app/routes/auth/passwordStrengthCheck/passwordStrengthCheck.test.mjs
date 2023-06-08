@@ -3,14 +3,16 @@ import assert from "node:assert/strict"
 import { Server } from "#src/core/server/index.mjs"
 
 test("passwordStrengthCheck", async (t) => {
+  /** @typedef {import("./passwordStrengthCheck.schema.mjs").Body} Body */
+
   const server = Server.new()
   const url = "/api/password-strength"
   const method = "POST"
 
   await t.test("strong password", async () => {
-    const payload = {
+    const payload = /** @type {Body} */ ({
       password: "!@#abc#$%Ac1",
-    }
+    })
 
     const res = await server.inject({
       url,
@@ -28,9 +30,9 @@ test("passwordStrengthCheck", async (t) => {
   })
 
   await t.test("weak (short) password", async () => {
-    const payload = {
+    const payload = /** @type {Body} */ ({
       password: "!@#abc",
-    }
+    })
 
     const res = await server.inject({
       url,
@@ -48,9 +50,9 @@ test("passwordStrengthCheck", async (t) => {
   })
 
   await t.test("weak (repeating) password", async () => {
-    const payload = {
+    const payload = /** @type {Body} */ ({
       password: "111111111111111111111111111111111",
-    }
+    })
 
     const res = await server.inject({
       url,

@@ -2,7 +2,7 @@ import { test } from "node:test"
 import assert from "node:assert/strict"
 import { Password } from "./password.mjs"
 
-test("Password", async t => {
+test("Password", async (t) => {
   await t.test("valid password hashing and checking", async () => {
     const pwd = "random_password_300"
     const hash = await Password.hash(pwd)

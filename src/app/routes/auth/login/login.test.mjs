@@ -1,6 +1,7 @@
 /**
  * @typedef {import("@prisma/client").User} User
  * @typedef {import("@prisma/client").Password} Password
+ * @typedef {import("./login.schema.mjs").Body} Body
  */
 
 import { test } from "node:test"
@@ -11,7 +12,7 @@ import { Server } from "#src/core/server/index.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 import { faker } from "@faker-js/faker"
 
-test("login", async t => {
+test("login", async (t) => {
   const server = Server.new()
   const url = "/api/login"
   const method = "POST"
@@ -35,10 +36,10 @@ test("login", async t => {
     const res = await server.inject({
       url,
       method,
-      payload: {
+      payload: /** @type {Body} */ ({
         email: user.email,
         password,
-      },
+      }),
     })
 
     assert.equal(res.statusCode, 200)
@@ -54,7 +55,7 @@ test("login", async t => {
     assert.equal(body.password, undefined)
     assert.ok(body.token)
 
-    const result = await AuthService.validateLoginAuthToken(body.token.token)
+    const result = await AuthService.validateLoginToken(body.token.token)
     assert.equal(result.userId, user.id)
     assert.equal(result.userRole, user.role)
 
@@ -66,10 +67,10 @@ test("login", async t => {
     const res = await server.inject({
       url,
       method,
-      payload: {
+      payload: /** @type {Body} */ ({
         email: faker.internet.email(),
         password: faker.internet.password(),
-      },
+      }),
     })
 
     assert.equal(res.statusCode, 401)

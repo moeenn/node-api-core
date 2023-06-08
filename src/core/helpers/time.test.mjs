@@ -2,7 +2,7 @@ import { test } from "node:test"
 import assert from "node:assert/strict"
 import { Time } from "./time.mjs"
 
-test("Time", async t => {
+test("Time", async (t) => {
   await t.test("parseString", () => {
     const testCases = [
       { input: "10:20", expected: new Time(10, 20) },

@@ -2,7 +2,7 @@ import { test } from "node:test"
 import assert from "node:assert/strict"
 import { routes } from "#src/app/routes/index.mjs"
 
-test("route definitins", async t => {
+test("route definitins", async (t) => {
   await t.test("route method and url duplication test", () => {
     /** @type {string[]} */
     const routeKeys = routes.map((r) => r.method + " " + r.url)

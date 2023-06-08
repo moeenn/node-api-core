@@ -1,4 +1,8 @@
-/** @typedef {import("#src/app/emails/forgotPasswordEmail.mjs").ForgotPasswordEmailArgs} ForgotPasswordEmailArgs */
+/**
+ * @typedef {import("#src/app/emails/forgotPasswordEmail.mjs").ForgotPasswordEmailArgs} ForgotPasswordEmailArgs
+ * @typedef {import("./requestPasswordReset.schema.mjs").Body} Body
+ */
+
 import { test } from "node:test"
 import assert from "node:assert/strict"
 import { Server } from "#src/core/server/index.mjs"
@@ -8,7 +12,7 @@ import { EmailService } from "#src/core/email/index.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 import { faker } from "@faker-js/faker"
 
-test("requestPasswordReset", async t => {
+test("requestPasswordReset", async (t) => {
   const server = Server.new()
   const url = "/api/forgot-password/request-reset"
   const method = "POST"
@@ -27,9 +31,9 @@ test("requestPasswordReset", async t => {
     const res = await server.inject({
       url,
       method,
-      payload: {
+      payload: /** @type {Body} */ ({
         email: user.email,
-      },
+      }),
     })
     assert.equal(res.statusCode, 200)
 
@@ -59,9 +63,9 @@ test("requestPasswordReset", async t => {
     const res = await server.inject({
       url,
       method,
-      payload: {
+      payload: /** @type {Body} */ ({
         email,
-      },
+      }),
     })
     assert.equal(res.statusCode, 200)
 

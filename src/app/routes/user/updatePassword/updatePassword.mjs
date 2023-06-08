@@ -1,4 +1,3 @@
-import { authConfig } from "#src/app/config/authConfig.mjs"
 import { db } from "#src/core/database/index.mjs"
 import {
   AuthException,
@@ -8,19 +7,7 @@ import { Password } from "#src/core/helpers/password.mjs"
 import { requestMeta } from "#src/core/helpers/requestMeta.mjs"
 import { logger } from "#src/core/server/logger/index.mjs"
 import { validateToken } from "#src/core/server/middleware/index.mjs"
-
-const bodySchema = /** @type {const} */ ({
-  type: "object",
-  properties: {
-    password: { type: "string", minLength: authConfig.password.minLength },
-    confirmPassword: {
-      type: "string",
-      minLength: authConfig.password.minLength,
-    },
-  },
-  required: ["password", "confirmPassword"],
-  additionalProperties: false,
-})
+import { bodySchema } from "./updatePassword.schema.mjs"
 
 /** @type {import("fastify").RouteOptions} */
 export const updatePassword = {
@@ -37,7 +24,9 @@ export const updatePassword = {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = /** @type {import("json-schema-to-ts").FromSchema<typeof bodySchema>} */ (req.body)
+    const body = /** @type {import("./updatePassword.schema.mjs").Body} */ (
+      req.body
+    )
     const { userId } = requestMeta(req)
 
     if (body.password !== body.confirmPassword) {

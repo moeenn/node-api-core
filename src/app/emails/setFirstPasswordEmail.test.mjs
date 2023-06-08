@@ -3,7 +3,7 @@ import assert from "node:assert/strict"
 import { SetFirstPasswordEmail } from "./setFirstPasswordEmail.mjs"
 import { appConfig } from "#src/app/config/appConfig.mjs"
 
-test("SetFirstPasswordEmail test", async t => {
+test("SetFirstPasswordEmail test", async (t) => {
   await t.test("email template has all provided fields", () => {
     const args = {
       passwordToken: "123123123",

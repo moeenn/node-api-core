@@ -2,7 +2,7 @@ import { test } from "node:test"
 import assert from "node:assert/strict"
 import { Random } from "./random.mjs"
 
-test("Random helper", async t => {
+test("Random helper", async (t) => {
   await t.test("random strings", async () => {
     const one = await Random.string(10)
     const two = await Random.string(10)

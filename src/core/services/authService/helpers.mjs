@@ -31,7 +31,11 @@ export function generateGeneralToken(type) {
    */
   return async (userId) => {
     const { scope, expiry } = authConfig.tokens[type]
-    const token = await JWT.generate(authConfig.secret, { userId, scope }, expiry)
+    const token = await JWT.generate(
+      authConfig.secret,
+      { userId, scope },
+      expiry,
+    )
     return token
   }
 }

@@ -3,16 +3,7 @@ import { UserRole } from "@prisma/client"
 import { db } from "#src/core/database/index.mjs"
 import { logger } from "#src/core/server/logger/index.mjs"
 import { BadRequestException } from "#src/core/exceptions/index.mjs"
-
-const bodySchema = /** @type {const} */ ({
-  type: "object",
-  properties: {
-    userId: { type: "string", format: "uuid" },
-    status: { type: "boolean" },
-  },
-  required: ["userId", "status"],
-  additionalProperties: false,
-})
+import { bodySchema } from "./setUserStatus.schema.mjs"
 
 /** @type {import("fastify").RouteOptions} */
 export const setUserStatus = {
@@ -23,7 +14,9 @@ export const setUserStatus = {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = /** @type {import("json-schema-to-ts").FromSchema<typeof bodySchema>} */ (req.body)
+    const body = /** @type {import("./setUserStatus.schema.mjs").Body} */ (
+      req.body
+    )
 
     const user = await db.user.findFirst({
       where: {

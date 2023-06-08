@@ -1,15 +1,6 @@
 import { Password } from "#src/core/helpers/password.mjs"
 import { authConfig } from "#src/app/config/authConfig.mjs"
-
-const bodySchema = /** @type {const} */ ({
-  type: "object",
-  properties: {
-    password: { type: "string" },
-  },
-  required: ["password"],
-  additionalProperties: false,
-})
-
+import { bodySchema } from "./passwordStrengthCheck.schema.mjs"
 
 /** @type {import("fastify").RouteOptions} */
 export const passwordStrengthCheck = {
@@ -19,7 +10,10 @@ export const passwordStrengthCheck = {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = /** @type {import("json-schema-to-ts").FromSchema<typeof bodySchema>} */ (req.body)
+    const body =
+      /** @type {import("./passwordStrengthCheck.schema.mjs").Body} */ (
+        req.body
+      )
 
     if (body.password.length < authConfig.password.minLength) {
       return {

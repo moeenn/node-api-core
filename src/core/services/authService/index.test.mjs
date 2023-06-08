@@ -3,14 +3,14 @@ import { test } from "node:test"
 import assert from "node:assert/strict"
 import { AuthService } from "./index.mjs"
 
-test("AuthService", async t => {
+test("AuthService", async (t) => {
   await t.test("generate and validate login auth token", async () => {
-    const loginToken = await AuthService.generateLoginAuthToken(
+    const loginToken = await AuthService.generateLoginToken(
       "abc123",
       UserRole.USER,
     )
 
-    const { userId, userRole } = await AuthService.validateLoginAuthToken(
+    const { userId, userRole } = await AuthService.validateLoginToken(
       loginToken.token,
     )
     assert.equal(userId, "abc123")
@@ -18,7 +18,7 @@ test("AuthService", async t => {
   })
 
   await t.test("invalid login auth token", async () => {
-    assert.rejects(() => AuthService.validateLoginAuthToken("random-token"), {
+    assert.rejects(() => AuthService.validateLoginToken("random-token"), {
       message: /Invalid/,
     })
   })

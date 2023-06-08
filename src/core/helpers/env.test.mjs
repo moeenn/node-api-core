@@ -2,7 +2,7 @@ import { test } from "node:test"
 import assert from "node:assert/strict"
 import { env } from "./env.mjs"
 
-test("env helper", async t => {
+test("env helper", async (t) => {
   await t.test("get env value which is already set", () => {
     const result = env("NODE_ENV")
     assert.equal(result, "test")

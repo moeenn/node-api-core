@@ -9,7 +9,7 @@ export const validateToken = async (req) => {
     throw AuthException("Invalid bearer token")
   }
 
-  const { userId, userRole } = await AuthService.validateLoginAuthToken(token)
+  const { userId, userRole } = await AuthService.validateLoginToken(token)
 
   /* store id of the validated user on the request object */
   req.requestContext.set("userId", userId)

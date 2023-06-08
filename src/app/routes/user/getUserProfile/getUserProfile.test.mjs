@@ -6,7 +6,7 @@ import { UserRole } from "@prisma/client"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 import { faker } from "@faker-js/faker"
 
-test("getUserProfile", async t => {
+test("getUserProfile", async (t) => {
   const server = Server.new()
   const url = "/api/user/profile"
   const method = "GET"
@@ -20,7 +20,7 @@ test("getUserProfile", async t => {
         role: UserRole.USER,
       },
     })
-    const authToken = await AuthService.generateLoginAuthToken(
+    const authToken = await AuthService.generateLoginToken(
       user.id,
       UserRole.USER,
     )
@@ -46,7 +46,7 @@ test("getUserProfile", async t => {
 
   await t.test("invalid token", async () => {
     /** setup */
-    const authToken = await AuthService.generateLoginAuthToken(
+    const authToken = await AuthService.generateLoginToken(
       "5000",
       UserRole.USER,
     )

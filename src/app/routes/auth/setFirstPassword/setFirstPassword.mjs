@@ -1,24 +1,9 @@
-import { authConfig } from "#src/app/config/authConfig.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 import { db } from "#src/core/database/index.mjs"
 import { Password } from "#src/core/helpers/password.mjs"
 import { logger } from "#src/core/server/logger/index.mjs"
 import { BadRequestException } from "#src/core/exceptions/index.mjs"
-
-const bodySchema = /** @type {const} */ ({
-  type: "object",
-  properties: {
-    passwordToken: { type: "string" },
-    password: { type: "string", minLength: authConfig.password.minLength },
-    confirmPassword: {
-      type: "string",
-      minLength: authConfig.password.minLength,
-    },
-  },
-  required: ["passwordToken", "password", "confirmPassword"],
-  additionalProperties: false,
-})
-
+import { bodySchema } from "./setFirstPassword.schema.mjs"
 
 /** @type {import("fastify").RouteOptions} */
 export const setFirstPassword = {
@@ -28,7 +13,9 @@ export const setFirstPassword = {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = /** @type {import("json-schema-to-ts").FromSchema<typeof bodySchema>} */ (req.body)
+    const body = /** @type {import("./setFirstPassword.schema.mjs").Body} */ (
+      req.body
+    )
 
     if (body.password !== body.confirmPassword) {
       throw BadRequestException("Password confirmation failed")

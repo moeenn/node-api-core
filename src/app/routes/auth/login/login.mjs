@@ -1,4 +1,3 @@
-import { authConfig } from "#src/app/config/authConfig.mjs"
 import { db } from "#src/core/database/index.mjs"
 import {
   AuthException,
@@ -7,16 +6,7 @@ import {
 import { Password } from "#src/core/helpers/password.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 import { logger } from "#src/core/server/logger/index.mjs"
-
-const bodySchema = /** @type {const} */ ({
-  type: "object",
-  properties: {
-    email: { type: "string", format: "email" },
-    password: { type: "string", minLength: authConfig.password.minLength },
-  },
-  required: ["email", "password"],
-  additionalProperties: false,
-})
+import { bodySchema } from "./login.schema.mjs"
 
 /** @type {import("fastify").RouteOptions} */
 export const login = {
@@ -32,7 +22,7 @@ export const login = {
     body: bodySchema,
   },
   handler: async (req) => {
-    const body = /** @type {import("json-schema-to-ts").FromSchema<typeof bodySchema>} */ (req.body)
+    const body = /** @type {import("./login.schema.mjs").Body} */ (req.body)
 
     const user = await db.user.findFirst({
       where: {
@@ -71,7 +61,7 @@ export const login = {
       throw AuthException("Invalid email or password")
     }
 
-    const token = await AuthService.generateLoginAuthToken(user.id, user.role)
+    const token = await AuthService.generateLoginToken(user.id, user.role)
 
     return {
       message: "Login successful",

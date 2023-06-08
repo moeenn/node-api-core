@@ -2,7 +2,7 @@ import { test } from "node:test"
 import assert from "node:assert/strict"
 import { JWT } from "./jwt.mjs"
 
-test("JWT", async t => {
+test("JWT", async (t) => {
   await t.test("validate JWT", async () => {
     const secret = "some_random_secret"
     const payload = {
