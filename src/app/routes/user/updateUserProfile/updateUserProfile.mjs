@@ -1,6 +1,5 @@
 import { db } from "#src/core/database/index.mjs"
 import { AuthException } from "#src/core/exceptions/index.mjs"
-import { logger } from "#src/core/server/logger/index.mjs"
 import { validateToken } from "#src/core/server/middleware/index.mjs"
 import { requestMeta } from "#src/core/helpers/requestMeta.mjs"
 import { bodySchema } from "./updateUserProfile.schema.mjs"
@@ -25,10 +24,11 @@ export const updateUserProfile = {
       },
     })
 
-    if (!user) {
-      logger.error({ userId }, "non-existent user in json token")
-      throw AuthException("Cannot update user profile")
-    }
+    if (!user)
+      throw AuthException("Cannot update user profile", {
+        userId,
+        message: "non-existent user in json token",
+      })
 
     const updatedUser = await db.user.update({
       where: {

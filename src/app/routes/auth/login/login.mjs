@@ -5,7 +5,6 @@ import {
 } from "#src/core/exceptions/index.mjs"
 import { Password } from "#src/core/helpers/password.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
-import { logger } from "#src/core/server/logger/index.mjs"
 import { bodySchema } from "./login.schema.mjs"
 
 /** @type {import("fastify").RouteOptions} */
@@ -33,32 +32,32 @@ export const login = {
       },
     })
 
-    if (!user) {
-      logger.warn({ email: body.email }, "login against non-existent user")
-      throw AuthException("Invalid email or password")
-    }
+    if (!user)
+      throw AuthException("Invalid email or password", {
+        email: body.email,
+        message: "login against non-existent user",
+      })
 
-    if (!user.password) {
-      logger.info(
-        { email: body.email },
-        "failed login against non-configured account",
-      )
-      throw BadRequestException("Account not configured")
-    }
+    if (!user.password)
+      throw BadRequestException("Account not configured", {
+        email: body.email,
+        message: "failed login against non-configured account",
+      })
 
     if (!user.approved) {
-      logger.info(
-        { email: body.email },
-        "failed login against disabled account",
-      )
-      throw BadRequestException("User account disabled by admin")
+      throw BadRequestException("User account disabled by admin", {
+        email: body.email,
+        message: "failed login against disabled account",
+      })
     }
 
     /** validate the actual password */
     const isValid = await Password.verify(user.password.hash, body.password)
     if (!isValid) {
-      logger.warn({ email: body.email }, "invalid login password")
-      throw AuthException("Invalid email or password")
+      throw AuthException("Invalid email or password", {
+        email: body.email,
+        message: "invalid login password",
+      })
     }
 
     const token = await AuthService.generateLoginToken(user.id, user.role)

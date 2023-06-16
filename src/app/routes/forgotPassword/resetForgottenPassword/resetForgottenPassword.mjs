@@ -4,7 +4,6 @@ import {
 } from "#src/core/exceptions/index.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 import { db } from "#src/core/database/index.mjs"
-import { logger } from "#src/core/server/logger/index.mjs"
 import { Password } from "#src/core/helpers/password.mjs"
 import { bodySchema } from "./resetForgottenPassword.schema.mjs"
 
@@ -32,10 +31,11 @@ export const resetForgottenPassword = {
       },
     })
 
-    if (!user) {
-      logger.error({ userId }, "id of non-existent user in json token")
-      throw AuthException("Cannot reset password")
-    }
+    if (!user)
+      throw AuthException("Cannot reset password", {
+        userId,
+        message: "id of non-existent user in json token",
+      })
 
     const result = await Password.checkStrength(body.password)
     if (!result.strong) {

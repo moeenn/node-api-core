@@ -1,6 +1,5 @@
 import { db } from "#src/core/database/index.mjs"
 import { AuthException } from "#src/core/exceptions/index.mjs"
-import { logger } from "#src/core/server/logger/index.mjs"
 import { validateToken } from "#src/core/server/middleware/validateToken.mjs"
 import { AuthService } from "#src/core/services/authService/index.mjs"
 import { requestMeta } from "#src/core/helpers/requestMeta.mjs"
@@ -12,20 +11,23 @@ export const refreshAuthToken = {
   preValidation: [validateToken],
   handler: async (req) => {
     const { userId } = requestMeta(req)
-    const error = AuthException("Cannot refresh auth token")
+    const error = "Cannot refresh auth token"
 
     const user = await db.user.findUnique({ where: { id: userId } })
     if (!user) {
-      logger.warn(
-        { userId },
-        "trying to refresh auth token for non-existent user",
-      )
-      throw error
+      const details = {
+        userId,
+        message: "trying to refresh auth token for non-existent user",
+      }
+      throw AuthException(error, details)
     }
 
     if (!user.approved) {
-      logger.warn({ userId }, "disabled user tried to refresh auth token")
-      throw error
+      const details = {
+        userId,
+        message: "disabled user tried to refresh auth token",
+      }
+      throw AuthException(error, details)
     }
 
     const token = await AuthService.generateLoginToken(user.id, user.role)

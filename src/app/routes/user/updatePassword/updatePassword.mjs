@@ -5,7 +5,6 @@ import {
 } from "#src/core/exceptions/index.mjs"
 import { Password } from "#src/core/helpers/password.mjs"
 import { requestMeta } from "#src/core/helpers/requestMeta.mjs"
-import { logger } from "#src/core/server/logger/index.mjs"
 import { validateToken } from "#src/core/server/middleware/index.mjs"
 import { bodySchema } from "./updatePassword.schema.mjs"
 
@@ -39,10 +38,11 @@ export const updatePassword = {
       },
     })
 
-    if (!user) {
-      logger.error({ userId }, "non-existent user id in json token")
-      throw AuthException("Cannot update user password")
-    }
+    if (!user)
+      throw AuthException("Cannot update user password", {
+        userId,
+        message: "non-existent user id in json token",
+      })
 
     const result = await Password.checkStrength(body.password)
     if (!result.strong) {

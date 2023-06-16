@@ -1,7 +1,6 @@
 import { validateToken, hasRole } from "#src/core/server/middleware/index.mjs"
 import { UserRole } from "@prisma/client"
 import { db } from "#src/core/database/index.mjs"
-import { logger } from "#src/core/server/logger/index.mjs"
 import { BadRequestException } from "#src/core/exceptions/index.mjs"
 import { bodySchema } from "./setUserStatus.schema.mjs"
 
@@ -24,13 +23,11 @@ export const setUserStatus = {
       },
     })
 
-    if (!user) {
-      logger.warn(
-        { userId: body.userId },
-        "request to set account status for non-existent user",
-      )
-      throw BadRequestException("Invalid user id")
-    }
+    if (!user)
+      throw BadRequestException("Invalid user id", {
+        userId: body.userId,
+        message: "request to set account status for non-existent user",
+      })
 
     await db.user.update({
       where: {

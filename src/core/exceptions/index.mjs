@@ -1,13 +1,18 @@
 import createError from "@fastify/error"
+import { logger } from "#src/core/server/logger/index.mjs"
 
 /**
  * @param {string} code
  * @param {number} statusCode
  */
 function generateError(code, statusCode) {
-  /** @param {string} message */
-  return (message) => {
-    const ex = createError(code, message, statusCode)
+  /**
+   * @param {string} error
+   * @param {Record<string, unknown>} [details]
+   */
+  return (error, details) => {
+    logger.warn(details ?? { error })
+    const ex = createError(code, error, statusCode)
     return new ex()
   }
 }

@@ -1,6 +1,5 @@
 import { db } from "#src/core/database/index.mjs"
 import { AuthException } from "#src/core/exceptions/index.mjs"
-import { logger } from "#src/core/server/logger/index.mjs"
 import { validateToken } from "#src/core/server/middleware/index.mjs"
 import { requestMeta } from "#src/core/helpers/requestMeta.mjs"
 
@@ -18,10 +17,11 @@ export const getUserProfile = {
       },
     })
 
-    if (!user) {
-      logger.error({ userId }, "non-existent userId in json token")
-      throw AuthException("Cannot view profile")
-    }
+    if (!user)
+      throw AuthException("Cannot view profile", {
+        userId,
+        mesaage: "non-existent userId in json token",
+      })
 
     return user
   },
