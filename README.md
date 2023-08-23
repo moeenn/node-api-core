@@ -1,6 +1,6 @@
 # Node API Core
 
-A vanilla Javascript environment boilerplate for NodeJS API. Following tools are already configured
+A vanilla Javascript JSON API boilerplate for NodeJS API. Following tools are already configured
 - Server configuration using ```fastify```
 - Database connection using ```prisma```
 - Absolute paths using NodeJS built-in methods
