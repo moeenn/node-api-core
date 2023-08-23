@@ -12,8 +12,8 @@ export const validateToken = async (req) => {
   const { userId, userRole } = await AuthService.validateLoginToken(token)
 
   /* store id of the validated user on the request object */
-  req.requestContext.set("userId", userId)
-  req.requestContext.set("userRole", userRole)
+  req.requestContext.set(/** @type never */("userId"), /** @type never */(userId))
+  req.requestContext.set(/** @type never */("userRole"), /** @type never */(userRole))
 }
 
 /**

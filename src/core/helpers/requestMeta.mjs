@@ -8,8 +8,8 @@ import { logger } from "#src/core/server/logger/index.mjs"
  * @returns {{ userId: string, userRole: UserRole }}
  */
 export function requestMeta(req) {
-  const userId = req.requestContext.get("userId")
-  const userRole = req.requestContext.get("userRole")
+  const userId = req.requestContext.get(/** @type never */("userId"))
+  const userRole = req.requestContext.get(/** @type never */("userRole"))
 
   if (!userId || !userRole) {
     logger.error("Missing expected components in the verified JWT")
